@@ -1,0 +1,210 @@
+<style>
+    .toolbar-stock {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        border: 1px solid #E2E8F0;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .filtros-grupo { display: flex; gap: 15px; }
+    .input-filtro {
+        padding: 10px 15px;
+        border: 1px solid #CBD5E1;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        outline: none;
+        color: #334155;
+    }
+    .input-filtro:focus { border-color: #F47920; }
+    
+    /* Diseño de la Tabla de Productos */
+    .tabla-productos { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid #E2E8F0; }
+    .tabla-productos th { background: #F8FAFC; padding: 15px; text-align: left; font-size: 0.85rem; color: #64748B; text-transform: uppercase; border-bottom: 2px solid #E2E8F0; }
+    .tabla-productos td { padding: 15px; border-bottom: 1px solid #F1F5F9; vertical-align: middle; }
+    .tabla-productos tr:hover { background-color: #F8FAFC; }
+    
+    .prod-info { display: flex; align-items: center; gap: 15px; }
+    .prod-info img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+    .prod-info h4 { margin: 0; font-size: 1rem; color: #0F172A; }
+    .prod-info p { margin: 0; font-size: 0.8rem; color: #64748B; }
+
+    .switch { position: relative; display: inline-block; width: 46px; height: 24px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #CBD5E1; transition: .3s; border-radius: 24px; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    input:checked + .slider { background-color: #10B981; }
+    input:checked + .slider:before { transform: translateX(22px); }
+    input:disabled + .slider { opacity: 0.5; cursor: not-allowed; }
+
+    .badge-categoria { background: #E2E8F0; color: #475569; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: capitalize; }
+    .btn-icon-accion { background: transparent; border: none; color: #94A3B8; font-size: 1.1rem; cursor: pointer; padding: 5px; margin-right: 5px; transition: color 0.2s; }
+    .btn-icon-accion:hover { color: #F47920; }
+    .btn-icon-accion.delete:hover { color: #EF4444; }
+
+    .modal-overlay-admin { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.3s; }
+    .modal-overlay-admin.activo { opacity: 1; visibility: visible; }
+    .modal-panel { background: white; width: 500px; border-radius: 12px; overflow: hidden; transform: translateY(-20px); transition: transform 0.3s; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .modal-overlay-admin.activo .modal-panel { transform: translateY(0); }
+    .modal-header { background: #F8FAFC; padding: 20px; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; }
+    .modal-header h2 { font-size: 1.2rem; color: #0F172A; }
+    .modal-body { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 5px; }
+    .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 8px; outline: none; }
+    .modal-footer { padding: 20px; border-top: 1px solid #E2E8F0; display: flex; justify-content: flex-end; gap: 10px; background: #F8FAFC; }
+</style>
+
+<div class="content-header" style="margin-bottom: 20px;">
+    <div>
+        <h1 class="page-title">Menú y Stock</h1>
+        <p class="page-subtitle">Gestiona platillos, precios y disponibilidad en tiempo real.</p>
+    </div>
+    <button class="btn-primario" id="btn-nuevo-prod" style="background:#F47920; color:white;"><i class="fa-solid fa-plus"></i> Nuevo Platillo</button>
+</div>
+
+<div class="toolbar-stock">
+    <div class="filtros-grupo">
+        <input type="text" class="input-filtro" placeholder="🔍 Buscar platillo..." style="width: 250px;">
+        <select class="input-filtro">
+            <option value="todos">Todas las categorías</option>
+            <option value="fuertes">Platos Fuertes</option>
+            <option value="entradas">Entradas</option>
+            <option value="bebidas">Bebidas</option>
+        </select>
+    </div>
+    <div style="font-size: 0.9rem; color: #64748B;">
+        Total: <strong>24</strong> Platillos
+    </div>
+</div>
+
+<table class="tabla-productos">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th style="text-align: center;">Disponible (Web/Local)</th>
+            <th style="text-align: right;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Producto 1 -->
+        <tr>
+            <td>
+                <div class="prod-info">
+                    <img src="https://saboresdemicocina.com/wp-content/uploads/2025/10/22queretaro-enchiladas-queretanas-68ed60c10ad5a-1.webp" alt="Enchiladas">
+                    <div>
+                        <h4>Enchiladas Toks</h4>
+                        <p>#PROD-001</p>
+                    </div>
+                </div>
+            </td>
+            <td><span class="badge-categoria">Platos Fuertes</span></td>
+            <td style="font-weight: 600; color: #0F172A;">$119.00</td>
+            <td style="text-align: center;">
+                <label class="switch" title="Marcar como Agotado">
+                    <input type="checkbox" checked class="toggle-stock">
+                    <span class="slider"></span>
+                </label>
+                <div class="estado-texto" style="font-size: 0.75rem; color: #10B981; font-weight: 600; margin-top: 4px;">ACTIVO</div>
+            </td>
+            <td style="text-align: right;">
+                <button class="btn-icon-accion"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn-icon-accion delete"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        </tr>
+
+        <!-- Producto 2 (Agotado) -->
+        <tr>
+            <td>
+                <div class="prod-info">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSerpNuwj96HubTl-FnG08cIG4w3IAQxPFNV5kwPRsYZYhWo2JudJNd4vc&s=10" alt="Combo">
+                    <div>
+                        <h4>Combo Pechuga Crispy</h4>
+                        <p>#PROD-002</p>
+                    </div>
+                </div>
+            </td>
+            <td><span class="badge-categoria">Combos</span></td>
+            <td style="font-weight: 600; color: #0F172A;">$360.80</td>
+            <td style="text-align: center;">
+                <label class="switch" title="Volver a Activar">
+                    <input type="checkbox" class="toggle-stock">
+                    <span class="slider"></span>
+                </label>
+                <div class="estado-texto" style="font-size: 0.75rem; color: #EF4444; font-weight: 600; margin-top: 4px;">AGOTADO</div>
+            </td>
+            <td style="text-align: right;">
+                <button class="btn-icon-accion"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn-icon-accion delete"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        </tr>
+
+        <!-- Producto 3 -->
+        <tr>
+            <td>
+                <div class="prod-info">
+                    <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=200&h=200&fit=crop" alt="Café">
+                    <div>
+                        <h4>Café Americano</h4>
+                        <p>#PROD-004</p>
+                    </div>
+                </div>
+            </td>
+            <td><span class="badge-categoria">Bebidas</span></td>
+            <td style="font-weight: 600; color: #0F172A;">$45.00</td>
+            <td style="text-align: center;">
+                <label class="switch">
+                    <input type="checkbox" checked class="toggle-stock">
+                    <span class="slider"></span>
+                </label>
+                <div class="estado-texto" style="font-size: 0.75rem; color: #10B981; font-weight: 600; margin-top: 4px;">ACTIVO</div>
+            </td>
+            <td style="text-align: right;">
+                <button class="btn-icon-accion"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn-icon-accion delete"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- MODAL SIMULADO DE AGREGAR PRODUCTO -->
+<div class="modal-overlay-admin" id="modal-form-producto">
+    <div class="modal-panel">
+        <div class="modal-header">
+            <h2>Agregar Nuevo Platillo</h2>
+            <button id="cerrar-modal-prod" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#64748B;">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Nombre del Platillo</label>
+                <input type="text" placeholder="Ej. Tacos al Pastor">
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Precio ($)</label>
+                    <input type="number" placeholder="0.00">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Categoría</label>
+                    <select>
+                        <option>Entradas</option>
+                        <option>Platos Fuertes</option>
+                        <option>Bebidas</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>URL de la Imagen</label>
+                <input type="text" placeholder="https://ejemplo.com/imagen.jpg">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-primario" id="btn-cancelar-prod" style="background:#E2E8F0; color:#475569;">Cancelar</button>
+            <button class="btn-primario" style="background:#10B981; color:white;"><i class="fa-solid fa-save"></i> Guardar Platillo</button>
+        </div>
+    </div>
+</div>

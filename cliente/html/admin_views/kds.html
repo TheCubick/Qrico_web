@@ -1,0 +1,180 @@
+<style>
+    .kds-container { 
+        display: flex; 
+        flex-direction: column; 
+        height: calc(100vh - 120px); 
+    }
+    
+    .kds-board { 
+        display: flex; 
+        gap: 20px; 
+        flex: 1; 
+        overflow-x: auto; 
+        padding: 10px 0;
+    }
+    
+    .kds-column { 
+        flex: 1; 
+        min-width: 300px; 
+        background: #F1F5F9; 
+        border-radius: 12px; 
+        display: flex; 
+        flex-direction: column; 
+        overflow: hidden; 
+        border: 1px solid #E2E8F0;
+    }
+    
+    .kds-header { 
+        padding: 15px; 
+        text-align: center; 
+        font-weight: 800; 
+        font-size: 1.1rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1px;
+    }
+    
+    .col-nuevos .kds-header { background: #DBEAFE; color: #1D4ED8; border-bottom: 3px solid #3B82F6; }
+    .col-preparando .kds-header { background: #FEF3C7; color: #B45309; border-bottom: 3px solid #F59E0B; }
+    .col-listos .kds-header { background: #D1FAE5; color: #047857; border-bottom: 3px solid #10B981; }
+
+    .kds-body { 
+        flex: 1; 
+        padding: 15px; 
+        overflow-y: auto; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+
+    /* ANIMACIONES KDS */
+    @keyframes popInKDS {
+        0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    @keyframes pulseUrgente {
+        0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    /* Diseño Base de la Tarjeta */
+    .kds-card { 
+        background: white; 
+        border-radius: 10px; 
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+        border: 1px solid #CBD5E1; 
+        opacity: 0; /* Empieza oculta para la animación */
+        animation: popInKDS 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, opacity 0.3s ease;
+        transform-origin: center center;
+    }
+    
+    .kds-card:hover {
+        transform: translateY(-4px) scale(1.02) !important;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Colores por Estado */
+    .kds-card.urgente { 
+        border-left: 5px solid #EF4444; 
+        animation: popInKDS 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, pulseUrgente 2s infinite;
+    }
+    .kds-card.normal { border-left: 5px solid #3B82F6; }
+    .kds-card.listo { border-left: 5px solid #10B981; }
+    
+    .card-top { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        padding: 12px 15px; 
+        border-bottom: 1px dashed #E2E8F0; 
+        background: #F8FAFC; 
+        border-radius: 10px 10px 0 0;
+    }
+    .card-top h3 { margin: 0; font-size: 1.2rem; color: #0F172A; }
+    
+    .badge-origen-kds { font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
+    .badge-llevar { background: #F3E8FF; color: #7E22CE; }
+    .badge-mesa { background: #FFEDD5; color: #C2410C; }
+
+    .card-items { padding: 15px; }
+    .card-items ul { list-style: none; padding: 0; margin: 0; }
+    .card-items li { 
+        font-size: 1rem; 
+        color: #1E293B; 
+        margin-bottom: 8px; 
+        display: flex; 
+        gap: 10px; 
+        align-items: center; 
+    }
+    
+    .qty { 
+        background: #F47920; 
+        color: white; 
+        font-weight: 800; 
+        padding: 2px 7px; 
+        border-radius: 6px; 
+        font-size: 0.9rem; 
+    }
+
+    .kds-card-actions {
+        padding: 10px 15px;
+        background: #F8FAFC;
+        border-top: 1px solid #E2E8F0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .btn-kds-step {
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: none;
+        font-weight: 700;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: transform 0.2s, filter 0.2s;
+    }
+
+    .btn-kds-step:hover {
+        transform: scale(1.05);
+        filter: brightness(1.1);
+    }
+</style>
+
+<div class="kds-container">
+    <div class="content-header" style="margin-bottom: 15px;">
+        <div>
+            <h1 class="page-title"><i class="fa-solid fa-fire-burner" style="color: #EF4444;"></i> Monitor de Cocina (KDS)</h1>
+            <p class="page-subtitle">Comandas sincronizadas en tiempo real desde el POS.</p>
+        </div>
+    </div>
+
+    <div class="kds-board">
+        <!-- COLUMNA 1: POR PREPARAR -->
+        <div class="kds-column col-nuevos">
+            <div class="kds-header" id="kds-count-nuevos">
+                🔴 Por Preparar (0)
+            </div>
+            <div class="kds-body" id="kds-body-nuevos"></div>
+        </div>
+
+        <!-- COLUMNA 2: EN FUEGO -->
+        <div class="kds-column col-preparando">
+            <div class="kds-header" id="kds-count-preparando">
+                🍳 En Fuego (0)
+            </div>
+            <div class="kds-body" id="kds-body-preparando"></div>
+        </div>
+        
+        <!-- COLUMNA 3: LISTOS -->
+        <div class="kds-column col-listos">
+            <div class="kds-header" id="kds-count-listos">
+                ✅ Listos para Entregar (0)
+            </div>
+            <div class="kds-body" id="kds-body-listos"></div>
+        </div>
+    </div>
+</div>

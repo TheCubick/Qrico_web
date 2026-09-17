@@ -1,0 +1,629 @@
+/* =========================================
+   CANDADO UNIVERSAL ANTI-DESBORDAMIENTO (CHROME & SAFARI) 🔒📱
+   ========================================= */
+
+/* 1. Forzar que márgenes y bordes se calculen hacia adentro */
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
+
+/* 2. EL SECRETO: Usar 100% en lugar de 100vw. 
+   Esto evita que la barra de scroll rompa la medida */
+html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    position: relative;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 3. Evitar que cualquier imagen rompa su caja contenedora */
+img, picture, video {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    /* 4. Enjaular todos los contenedores principales (Header, Banners, Footer) */
+    .toks-header, 
+    .hero-banner,
+    .seccion-categorias,
+    .seccion-carrusel-tarjetas,
+    .seccion-menu-completo,
+    .sitio-footer,
+    .footer-contenedor {
+        width: 100% !important;
+        max-width: 100% !important;
+        /* Un padding seguro para que nada toque los bordes del celular */
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 5. Asegurar que las tiras deslizables (menú y tarjetas) no empujen la pantalla */
+    .main-nav, .pista-tarjetas, .pos-filters, .burbujas-contenedor {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* 6. Evitar que la cuadrícula de productos sea más grande que el celular */
+    .cuadricula-productos {
+        grid-template-columns: 1fr !important; /* 1 sola columna ocupando el 100% */
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+/* =========================================
+VARIABLES Y RESET
+========================================= */
+:root {
+    --color-naranja: #F47920;
+    --color-texto: #333333;
+    --color-fondo: #FAFAFA;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+}
+
+.root {
+    --color-velvet-wine: #260212;
+    --color-burgundy-stage: #4f0423;
+    --color-impossible-red: #e10600;
+    --color-blush-highlight: #ffc7c6;
+    --color-butcher-black: #000000;
+    --color-bone-white: #ffffff;
+    --font-sans-meat: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --page-max-width: 1280px;
+    --radius-cards: 12px;
+    --radius-buttons: 15px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--color-velvet-wine);
+    color: var(--color-bone-white);
+    font-family: var(--font-sans-meat);
+}
+
+img { max-width: 100%; }
+
+main { overflow: hidden; }
+
+.hero-banner {
+    width: 100%;
+    min-height: 500px;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background: var(--color-burgundy-stage);
+}
+
+.hero-banner::after {
+    content: 'COMIDA QUE\A SE SIENTE Q-RICO';
+    white-space: pre;
+    position: absolute;
+    z-index: 3;
+    inset: 50% auto auto 50%;
+    width: min(90%, 900px);
+    transform: translate(-50%, -50%);
+    color: var(--color-impossible-red);
+    font-size: clamp(3.2rem, 10vw, 9rem);
+    font-weight: 700;
+    line-height: .78;
+    letter-spacing: .04em;
+    text-align: center;
+    pointer-events: none;
+}
+
+.banner-content, .slide { position: absolute; inset: 0; }
+.banner-content { z-index: 1; }
+.slide { opacity: 0; transition: opacity .5s ease; }
+.slide.activa { opacity: 1; z-index: 2; }
+.slide::after { content: ''; position: absolute; inset: 0; background: rgba(38, 2, 18, .54); }
+.slide img { width: 100%; height: 100%; object-fit: cover; }
+
+.arrow-btn {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--color-bone-white);
+    border-radius: var(--radius-buttons);
+    background: var(--color-butcher-black);
+    color: var(--color-bone-white);
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+.arrow-btn:hover { background: var(--color-impossible-red); }
+.arrow-btn.left { left: 24px; }
+.arrow-btn.right { right: 24px; }
+
+.puntos-carrusel {
+    position: absolute;
+    z-index: 5;
+    bottom: 24px;
+    left: 50%;
+    display: flex;
+    gap: 8px;
+    transform: translateX(-50%);
+}
+.punto { width: 10px; height: 10px; border: 1px solid var(--color-bone-white); border-radius: 50%; cursor: pointer; }
+.punto.activo { background: var(--color-impossible-red); border-color: var(--color-impossible-red); }
+
+.seccion-categorias, .seccion-menu-completo {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 80px 24px;
+    background: var(--color-velvet-wine);
+    text-align: center;
+}
+
+.titulo-seccion {
+    margin: 0 0 40px;
+    color: var(--color-impossible-red);
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 700;
+    line-height: .76;
+    letter-spacing: .04em;
+}
+.texto-naranja { color: var(--color-impossible-red); }
+
+.burbujas-contenedor { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.burbuja-categoria {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid var(--color-blush-highlight);
+    border-radius: 15px;
+    color: var(--color-blush-highlight);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+}
+.burbuja-categoria:hover, .burbuja-categoria.activa { border-color: var(--color-impossible-red); background: var(--color-impossible-red); color: var(--color-bone-white); }
+.burbuja-categoria .icono-box { font-size: 1rem; }
+.burbuja-categoria span { text-align: left; }
+
+.seccion-carrusel-tarjetas { padding: 64px 24px; background: var(--color-burgundy-stage); }
+.controles-carrusel-tarjetas { display: flex; align-items: center; gap: 16px; max-width: var(--page-max-width); margin: auto; }
+.flecha-carrusel { flex: 0 0 auto; padding: 12px; color: var(--color-blush-highlight); cursor: pointer; font-size: 1.5rem; }
+.flecha-carrusel:hover { color: var(--color-impossible-red); }
+.pista-tarjetas { display: flex; gap: 16px; min-width: 0; overflow-x: auto; padding: 8px 0 20px; scrollbar-width: none; }
+.pista-tarjetas::-webkit-scrollbar { display: none; }
+
+.seccion-menu-completo { padding-top: 100px; }
+.cuadricula-productos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: var(--page-max-width); margin: auto; text-align: left; }
+
+#contenedor-header { position: sticky; top: 0; z-index: 9999; }
+
+@media (max-width: 768px) {
+    .hero-banner { min-height: 360px; }
+    .seccion-categorias, .seccion-menu-completo { padding: 56px 16px; }
+    .seccion-carrusel-tarjetas { padding: 48px 12px; }
+    .controles-carrusel-tarjetas { gap: 4px; }
+    .cuadricula-productos { grid-template-columns: 1fr; }
+    .titulo-seccion { margin-bottom: 28px; }
+}
+.hero-banner {
+    height: 500px;
+    width: 100%;
+    max-width: 1300px;
+    margin: 40px auto;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    background-color: #1A1A1A;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.banner-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.slide.activa {
+    opacity: 1;
+    z-index: 2;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Botones del carrusel */
+.arrow-btn {
+    background: white;
+    color: var(--color-naranja);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.arrow-btn:hover {
+    background: #F0F0F0;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.arrow-btn.left {
+    left: 20px;
+}
+
+.arrow-btn.right {
+    right: 20px;
+}
+
+/* Puntos de navegación abajo del carrusel */
+.puntos-carrusel {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.punto {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.punto.activo {
+    background: var(--color-naranja);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.seccion-categorias {
+    text-align: center;
+    padding: 20px 20px 40px;
+    background-color: var(--color-fondo);
+}
+
+.titulo-seccion {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+    color: #2D3748;
+}
+
+.texto-naranja {
+    color: var(--color-naranja);
+}
+
+.burbujas-contenedor {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.burbuja-categoria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 120px;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Animación de salto de las categorías */
+.burbuja-categoria:hover {
+    transform: translateY(-10px);
+}
+
+.burbuja-categoria:hover .icono-box {
+    border-color: var(--color-naranja);
+    color: var(--color-naranja);
+    box-shadow: 0 10px 20px rgba(244, 121, 32, 0.2);
+}
+
+.burbuja-categoria .icono-box {
+    width: 90px;
+    height: 90px;
+    border-radius: 20px 20px 30px 30px;
+    background: white;
+    border: 2px solid #EEE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #333;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.burbuja-categoria.activa .icono-box {
+    background-color: #000;
+    color: var(--color-naranja);
+    border-color: #000;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.burbuja-categoria span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* =========================================
+CARRUSEL DE TARJETAS HORIZONTAL
+========================================= */
+.seccion-carrusel-tarjetas {
+    background-color: #FFFFFF;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.controles-carrusel-tarjetas {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.flecha-carrusel {
+    font-size: 3rem;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.flecha-carrusel:hover {
+    color: var(--color-naranja);
+    transform: scale(1.1);
+}
+
+.pista-tarjetas {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    padding: 20px 10px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.pista-tarjetas::-webkit-scrollbar {
+    display: none;
+}
+
+.barra-progreso-tarjetas {
+    width: 400px;
+    height: 6px;
+    background-color: #EEE;
+    border-radius: 10px;
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+.barra-progreso-tarjetas .progreso {
+    height: 100%;
+    background-color: var(--color-naranja);
+    border-radius: 10px;
+}
+
+/* =========================================
+CUADRÍCULA DEL MENÚ COMPLETO
+========================================= */
+.seccion-menu-completo {
+    background-color: var(--color-fondo);
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cuadricula-productos {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+/* =========================================
+HEADER STICKY Y ANIMACIONES (Desde tu código)
+========================================= */
+#contenedor-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-nav a {
+    transition: color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.main-nav a:hover {
+    color: var(--color-naranja, #F47920);
+    transform: translateY(-2px);
+}
+
+.btn-naranja {
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.btn-naranja:hover {
+    background-color: #d66415;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 6px 15px rgba(244, 121, 32, 0.4);
+}
+
+.ic-accion {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+    cursor: pointer;
+}
+
+.ic-accion:hover {
+    transform: scale(1.25);
+    color: var(--color-naranja, #F47920);
+}
+/* =========================================
+   ADAPTACIÓN PARA MÓVILES Y TABLETS 📱
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* 1. Ajuste del Contenedor Principal */
+    .pos-layout, .menu-layout {
+        flex-direction: column; /* Cambia de fila (lado a lado) a columna (uno abajo del otro) */
+        height: auto !important;
+        gap: 15px;
+    }
+
+    /* 2. Cuadrícula de Platillos (2 columnas en celular) */
+    .pos-grid, .menu-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas exactas */
+        gap: 10px !important;
+    }
+
+    .pos-item img, .menu-item img {
+        height: 100px !important; /* Imagen un poco más compacta */
+    }
+
+    /* 3. Filtros de Categoría con Desplazamiento Táctil */
+    .pos-filters, .menu-filters {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch; /* Scroll suave en iPhone */
+        scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
+    }
+
+    .pos-filters::-webkit-scrollbar {
+        display: none; /* Oculta la barra de scroll en Chrome/Safari */
+    }
+
+    .pos-cat-btn, .menu-cat-btn {
+        flex-shrink: 0; /* Evita que los botones se aplasten */
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    /* 4. Panel de Ticket / Carrito Flotante o al final */
+    .pos-ticket-panel, .menu-cart-panel {
+        width: 100% !important; /* Toma todo el ancho de la pantalla */
+        position: relative;
+        bottom: 0;
+        margin-top: 15px;
+    }
+
+    /* 5. Cabecera y Títulos más pequeños */
+    .page-title {
+        font-size: 1.4rem !important;
+    }
+
+    .page-subtitle {
+        font-size: 0.85rem !important;
+    }
+}
+
+/* Pantallas muy pequeñas (Smartphones de < 480px) */
+@media (max-width: 480px) {
+    .pos-grid, .menu-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* Mantiene 2 columnas pero ajusta rellenos */
+    }
+
+    .pos-item-info {
+        padding: 8px !important;
+    }
+
+    .pos-item-info h4 {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Capa visual final basada en DESIGN.md */
+:root {
+    --color-velvet-wine: #260212;
+    --color-burgundy-stage: #4f0423;
+    --color-impossible-red: #e10600;
+    --color-blush-highlight: #ffc7c6;
+    --color-butcher-black: #000000;
+    --color-bone-white: #ffffff;
+    --font-sans-meat: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+body { background: var(--color-velvet-wine); color: var(--color-bone-white); font-family: var(--font-sans-meat); }
+.hero-banner { min-height: 500px; margin: 0 auto; border-radius: 0; background: var(--color-burgundy-stage); box-shadow: none; }
+.hero-banner::after { content: 'COMIDA QUE\A SE SIENTE Q-RICO'; white-space: pre; position: absolute; z-index: 3; inset: 50% auto auto 50%; width: min(90%, 900px); transform: translate(-50%, -50%); color: var(--color-impossible-red); font-size: clamp(3.2rem, 10vw, 9rem); font-weight: 700; line-height: .78; letter-spacing: .04em; text-align: center; pointer-events: none; }
+.slide::after { content: ''; position: absolute; inset: 0; background: rgba(38, 2, 18, .54); }
+.arrow-btn { width: 44px; height: 44px; border: 1px solid var(--color-bone-white); border-radius: 15px; background: var(--color-butcher-black); color: var(--color-bone-white); box-shadow: none; }
+.arrow-btn:hover { background: var(--color-impossible-red); transform: translateY(-50%); }
+.punto { width: 10px; height: 10px; background: transparent; border: 1px solid var(--color-bone-white); }
+.punto.activo { background: var(--color-impossible-red); border-color: var(--color-impossible-red); box-shadow: none; }
+.seccion-categorias, .seccion-menu-completo { max-width: 1280px; padding: 80px 24px; background: var(--color-velvet-wine); color: var(--color-bone-white); }
+.titulo-seccion { margin-bottom: 40px; color: var(--color-impossible-red); font-size: clamp(3.5rem, 9vw, 7rem); line-height: .76; letter-spacing: .04em; }
+.texto-naranja { color: var(--color-impossible-red); }
+.burbujas-contenedor { gap: 8px; }
+.burbuja-categoria { width: auto; height: auto; padding: 10px 16px; flex-direction: row; border: 1px solid var(--color-blush-highlight); border-radius: 15px; background: transparent; color: var(--color-blush-highlight); font-size: 14px; font-weight: 500; text-transform: uppercase; }
+.burbuja-categoria:hover { transform: none; }
+.burbuja-categoria:hover .icono-box { border: 0; box-shadow: none; }
+.burbuja-categoria .icono-box, .burbuja-categoria.activa .icono-box { width: auto; height: auto; border: 0; border-radius: 0; background: transparent; color: inherit; box-shadow: none; font-size: 1rem; }
+.burbuja-categoria.activa { border-color: var(--color-impossible-red); background: var(--color-impossible-red); color: var(--color-bone-white); }
+.seccion-carrusel-tarjetas { padding: 64px 24px; background: var(--color-burgundy-stage); }
+.controles-carrusel-tarjetas { max-width: 1280px; gap: 16px; }
+.flecha-carrusel { color: var(--color-blush-highlight); font-size: 1.5rem; }
+.flecha-carrusel:hover { color: var(--color-impossible-red); }
+.pista-tarjetas { gap: 16px; padding: 8px 0 20px; }
+.cuadricula-productos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 1280px; margin-top: 20px; }
+@media (max-width: 768px) { .hero-banner { min-height: 360px; } .seccion-categorias, .seccion-menu-completo { padding: 56px 16px; } .seccion-carrusel-tarjetas { padding: 48px 12px; } .cuadricula-productos { grid-template-columns: 1fr !important; } }

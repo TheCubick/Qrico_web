@@ -1,0 +1,124 @@
+/* STREAMING_CHUNK: Estilos base de la tarjeta vertical... */
+.tarjeta-toks {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden; /* Para que la imagen respete los bordes redondeados */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #F0F0F0;
+    flex-shrink: 0; /* Importante para el scroll horizontal */
+}
+
+.tarjeta-toks:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+/* STREAMING_CHUNK: Imagen superior... */
+.img-contenedor {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background-color: #333; /* Fondo oscuro imitando la textura de piedra de la referencia */
+}
+
+.tarjeta-toks {
+    width: 320px;
+    flex: 0 0 320px;
+    overflow: hidden;
+    border: 1px solid var(--color-butcher-black);
+    border-radius: 12px;
+    background: var(--color-burgundy-stage);
+}
+.img-contenedor { height: 220px; overflow: hidden; background: var(--color-butcher-black); }
+.img-contenedor img { width: 100%; height: 100%; object-fit: cover; }
+.info-contenedor { padding: 20px; }
+.info-contenedor h3 { margin: 0 0 8px; color: var(--color-bone-white); font-size: 24px; line-height: 1.1; text-transform: uppercase; }
+.info-contenedor h4.texto-naranja { margin: 0 0 20px; color: var(--color-blush-highlight); font-size: 14px; letter-spacing: .03em; }
+.btn-negro, .btn-agregar {
+    border: 0;
+    border-radius: 15px;
+    background: var(--color-impossible-red);
+    color: var(--color-bone-white);
+    cursor: pointer;
+    font: 500 14px var(--font-sans-meat);
+    letter-spacing: .02em;
+}
+.btn-negro { padding: 10px 14px; }
+.btn-negro:hover, .btn-agregar:hover { background: var(--color-bone-white); color: var(--color-impossible-red); }
+.img-contenedor img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* STREAMING_CHUNK: Información y Botón... */
+.info-contenedor {
+    padding: 30px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-contenedor h3 {
+    font-size: 1.2rem;
+    color: #333333;
+    margin: 0;
+    font-weight: 600;
+}
+
+.info-contenedor h4.texto-naranja {
+    font-size: 1.4rem;
+    color: var(--color-naranja, #F47920);
+    margin: 0 0 20px 0;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.btn-negro {
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-negro:hover {
+    background-color: #333333;
+}
+
+/* =========================================
+NUEVAS ANIMACIONES PARA BOTÓN VER MÁS
+========================================= */
+
+.btn-negro {
+    transition: all 0.3s ease;
+}
+
+.btn-negro:hover {
+    background-color: #333333;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.tarjeta-toks { width: 320px; flex: 0 0 320px; border: 1px solid var(--color-butcher-black); border-radius: 12px; background: var(--color-burgundy-stage); box-shadow: none; }
+.tarjeta-toks:hover { transform: none; box-shadow: none; }
+.img-contenedor { background: var(--color-butcher-black); }
+.info-contenedor { padding: 20px; text-align: left; align-items: flex-start; }
+.info-contenedor h3 { color: var(--color-bone-white); font-size: 24px; text-transform: uppercase; }
+.info-contenedor h4.texto-naranja { color: var(--color-blush-highlight); font-size: 14px; }
+.btn-negro { padding: 10px 14px; border-radius: 15px; background: var(--color-impossible-red); font: 500 14px var(--font-sans-meat); letter-spacing: .02em; }
+.btn-negro:hover { background: var(--color-bone-white); color: var(--color-impossible-red); transform: none; box-shadow: none; }
+

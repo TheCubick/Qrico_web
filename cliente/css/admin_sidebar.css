@@ -1,0 +1,130 @@
+/* =========================================
+SIDEBAR ESTILO ADMIN
+========================================= */
+.admin-sidebar {
+    width: 260px;
+    background-color: #1F2836;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    flex-shrink: 0;
+}
+
+.sidebar-brand {
+    padding: 25px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon i {
+    color: #F47920;
+    font-size: 1.5rem;
+}
+
+.sidebar-brand h2 {
+    color: #FFFFFF;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-brand span {
+    color: #8A99AF;
+    font-weight: 400;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 10px 15px;
+    overflow-y: auto;
+}
+
+.nav-title {
+    color: #64748B;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 20px 0 10px 15px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    color: #DEE4EE;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: all 0.2s ease;
+}
+
+.nav-item i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+    color: #8A99AF;
+    transition: color 0.2s ease;
+}
+
+/* Efecto hover */
+.nav-item:hover {
+    background-color: #2C3545;
+}
+
+.nav-item:hover i {
+    color: #DEE4EE;
+}
+
+/* Estado activo */
+.nav-item.activo {
+    background-color: #362D27;
+    color: #F47920;
+    position: relative;
+}
+
+.nav-item.activo::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 3px;
+    background-color: #F47920;
+    border-radius: 5px 0 0 5px;
+}
+
+.nav-item.activo i {
+    color: #F47920;
+}
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-sucursal-bottom {
+    width: 100%;
+    background-color: #313D4F;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-sucursal-bottom:hover {
+    background-color: #3C4A5F;
+}
