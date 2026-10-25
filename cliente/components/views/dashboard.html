@@ -1,0 +1,54 @@
+<section class="view view-dashboard">
+    <div class="view-head">
+        <div>
+            <span class="eyebrow" id="dash-fecha">Hoy</span>
+            <h2 class="view-title" id="dash-saludo">Hola</h2>
+            <p class="view-sub">Así va tu operación en este momento.</p>
+        </div>
+        <div class="view-actions">
+            <a class="q-btn q-btn--outline" href="#mesas"><i data-lucide="armchair"></i> Ver mesas</a>
+            <a class="q-btn q-btn--primary" href="#pos"><i data-lucide="plus"></i> Nueva orden</a>
+        </div>
+    </div>
+
+    <div class="kpi-grid" id="dash-kpis"></div>
+
+    <div class="dash-grid">
+        <article class="panel dash-grid__horas">
+            <header class="panel__head">
+                <div><h3>Ventas por hora</h3><p class="panel__sub">Hoy contra ayer</p></div>
+            </header>
+            <div class="chart-box"><canvas id="chart-horas" aria-label="Ventas por hora"></canvas></div>
+        </article>
+
+        <article class="panel dash-grid__top">
+            <header class="panel__head">
+                <div><h3>Más vendidos</h3><p class="panel__sub" id="dash-top-sub">Hoy</p></div>
+            </header>
+            <div class="chart-box chart-box--donut"><canvas id="chart-top" aria-label="Platillos más vendidos"></canvas></div>
+            <ul class="legend-list" id="dash-top-list"></ul>
+        </article>
+
+        <article class="panel dash-grid__live">
+            <header class="panel__head">
+                <div><h3>Órdenes en vivo</h3><p class="panel__sub">Pedidos de mesas QR y punto de venta</p></div>
+                <span class="live-pill"><span class="live-pill__dot"></span>En vivo</span>
+            </header>
+            <div class="table-wrap"><table class="q-table" id="dash-ordenes"></table></div>
+        </article>
+
+        <article class="panel dash-grid__alertas">
+            <header class="panel__head">
+                <div><h3>Mesas que te necesitan</h3><p class="panel__sub">Llamadas y cuentas solicitadas</p></div>
+            </header>
+            <div id="dash-alertas" class="alert-list"></div>
+        </article>
+
+        <article class="panel dash-grid__semana">
+            <header class="panel__head">
+                <div><h3>Últimos 7 días</h3><p class="panel__sub">Total cobrado por día</p></div>
+            </header>
+            <div class="chart-box chart-box--short"><canvas id="chart-semana" aria-label="Ventas de los últimos 7 días"></canvas></div>
+        </article>
+    </div>
+</section>

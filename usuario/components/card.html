@@ -1,0 +1,19 @@
+<article class="tarjeta-toks {{clase}}" data-open="{{id}}" tabindex="0">
+    <div class="img-contenedor">
+        {{imagen}}
+        {{badge}}
+    </div>
+
+    <div class="info-contenedor">
+        <h3>{{nombre}}</h3>
+        <h4 class="texto-coral">{{categoria}}</h4>
+        <div class="tarjeta-precio">
+            <span class="precio-actual q-mono">{{precio}}</span>
+            {{precioAnterior}}
+        </div>
+        <div class="tarjeta-acciones">
+            <button class="btn-ver-mas" data-open="{{id}}">VER MÁS <i data-lucide="chevron-down"></i></button>
+            <button class="btn-agregar-pill" data-add="{{id}}" aria-label="Agregar {{nombre}}" {{disabled}}><i data-lucide="plus"></i> AGREGAR</button>
+        </div>
+    </div>
+</article>

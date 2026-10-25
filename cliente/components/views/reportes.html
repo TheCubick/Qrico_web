@@ -1,0 +1,52 @@
+<section class="view view-reportes">
+    <div class="view-head">
+        <div>
+            <span class="eyebrow">Inteligencia de negocio</span>
+            <h2 class="view-title">Reportes y corte de caja</h2>
+            <p class="view-sub" id="rep-rango-label">Hoy</p>
+        </div>
+        <div class="view-actions">
+            <button class="q-btn q-btn--outline" id="rep-csv"><i data-lucide="file-spreadsheet"></i> Exportar CSV</button>
+            <button class="q-btn q-btn--primary" id="rep-pdf"><i data-lucide="file-down"></i> Corte de caja PDF</button>
+        </div>
+    </div>
+
+    <div class="rep-filters">
+        <div class="q-segmented" id="rep-rango">
+            <button data-rango="hoy" class="is-active">Hoy</button>
+            <button data-rango="7">7 días</button>
+            <button data-rango="30">30 días</button>
+            <button data-rango="custom">Personalizado</button>
+        </div>
+        <div class="rep-custom" id="rep-custom" hidden>
+            <input type="date" class="q-input" id="rep-desde" aria-label="Desde">
+            <span class="q-muted">a</span>
+            <input type="date" class="q-input" id="rep-hasta" aria-label="Hasta">
+        </div>
+    </div>
+
+    <div class="kpi-grid kpi-grid--6" id="rep-kpis"></div>
+
+    <div class="rep-grid">
+        <article class="panel">
+            <header class="panel__head"><div><h3>Ventas en el periodo</h3><p class="panel__sub" id="rep-chart-sub">Por día</p></div></header>
+            <div class="chart-box"><canvas id="rep-chart-ventas" aria-label="Ventas en el periodo"></canvas></div>
+        </article>
+        <article class="panel">
+            <header class="panel__head"><div><h3>Métodos de pago</h3><p class="panel__sub">Monto cobrado por método</p></div></header>
+            <div class="chart-box chart-box--donut"><canvas id="rep-chart-pagos" aria-label="Métodos de pago"></canvas></div>
+            <ul class="legend-list" id="rep-pagos-list"></ul>
+        </article>
+    </div>
+
+    <div class="rep-grid rep-grid--tables">
+        <article class="panel">
+            <header class="panel__head"><div><h3>Platillos más vendidos</h3></div></header>
+            <div class="table-wrap"><table class="q-table" id="rep-top"></table></div>
+        </article>
+        <article class="panel">
+            <header class="panel__head"><div><h3>Cuentas cobradas</h3><p class="panel__sub">Las más recientes primero</p></div></header>
+            <div class="table-wrap table-wrap--scroll"><table class="q-table" id="rep-ventas"></table></div>
+        </article>
+    </div>
+</section>

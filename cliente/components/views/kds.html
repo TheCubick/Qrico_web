@@ -1,0 +1,26 @@
+<section class="view view-kds">
+    <div class="view-head view-head--compact">
+        <div class="kds-stats" id="kds-stats"></div>
+        <div class="view-actions">
+            <button class="q-btn q-btn--outline q-btn--sm" id="kds-sonido"><i data-lucide="volume-2"></i> Sonido activo</button>
+            <button class="q-btn q-btn--outline q-btn--sm" id="kds-fullscreen"><i data-lucide="maximize"></i> Pantalla completa</button>
+        </div>
+    </div>
+
+    <p class="kds-hint"><i data-lucide="grip-vertical"></i> Arrastra las comandas entre columnas o usa los botones de cada tarjeta.</p>
+
+    <div class="kds-board">
+        <div class="kds-col kds-col--pendiente">
+            <header class="kds-col__head"><span class="kds-col__dot"></span><h3>Pendientes</h3><span class="kds-col__count q-mono" data-count="pendiente">0</span></header>
+            <div class="kds-list" data-estado="pendiente"></div>
+        </div>
+        <div class="kds-col kds-col--preparacion">
+            <header class="kds-col__head"><span class="kds-col__dot"></span><h3>En preparación</h3><span class="kds-col__count q-mono" data-count="preparacion">0</span></header>
+            <div class="kds-list" data-estado="preparacion"></div>
+        </div>
+        <div class="kds-col kds-col--listo">
+            <header class="kds-col__head"><span class="kds-col__dot"></span><h3>Listos para servir</h3><span class="kds-col__count q-mono" data-count="listo">0</span></header>
+            <div class="kds-list" data-estado="listo"></div>
+        </div>
+    </div>
+</section>

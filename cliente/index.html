@@ -2,10 +2,72 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=html/admin.html">
-    <title>Q-RICO | Redirigiendo...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1E1B18">
+    <link rel="icon" type="image/png" href="../usuario/assets/images/logo/logomin.png">
+    <title>Acceso | Q-RICO Panel</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../shared/css/tokens.css">
+    <link rel="stylesheet" href="assets/styles/admin.css">
 </head>
-<body>
-    <p>Redirigiendo al sistema...</p>
+<body class="login-body" data-page="login">
+
+    <main class="login">
+        <!-- Panel de marca -->
+        <section class="login__brand">
+            <div class="login__brand-top">
+                <img src="../usuario/assets/images/logo/vectorizar_logo.svg" alt="Q-RICO" class="login__qrico">
+                <span class="login__plan"><i data-lucide="badge-check"></i> Panel del restaurante</span>
+            </div>
+            <div class="login__brand-copy">
+                <span class="eyebrow eyebrow--light">Bienvenido a</span>
+                <h1 class="login__restaurant" id="login-restaurante">Tu restaurante</h1>
+                <p id="login-eslogan">Pedidos QR, cocina, mesas y caja en un solo lugar.</p>
+            </div>
+            <ul class="login__features">
+                <li><i data-lucide="qr-code"></i> Menú QR sincronizado en tiempo real</li>
+                <li><i data-lucide="chef-hat"></i> Cocina (KDS) con arrastrar y soltar</li>
+                <li><i data-lucide="receipt-text"></i> Cobro dividido y corte de caja en PDF</li>
+            </ul>
+        </section>
+
+        <!-- PIN -->
+        <section class="login__panel" aria-labelledby="login-titulo">
+            <div class="pin-card" id="pin-card">
+                <span class="pin-card__icon"><i data-lucide="lock-keyhole"></i></span>
+                <h2 id="login-titulo">Ingresa tu PIN</h2>
+                <p class="q-muted" id="pin-mensaje">Cada rol entra directo a su área de trabajo.</p>
+
+                <div class="pin-dots" id="pin-dots" aria-live="polite">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+
+                <div class="pin-pad" id="pin-pad">
+                    <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
+                    <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
+                    <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
+                    <button data-key="clear" class="pin-pad__aux" aria-label="Borrar todo"><i data-lucide="rotate-ccw"></i></button>
+                    <button data-key="0">0</button>
+                    <button data-key="back" class="pin-pad__aux" aria-label="Borrar"><i data-lucide="delete"></i></button>
+                </div>
+
+                <details class="pin-demo">
+                    <summary><i data-lucide="info"></i> PINs de demostración</summary>
+                    <div class="pin-demo__grid" id="pin-demo"></div>
+                </details>
+            </div>
+            <a class="login__menu-link" href="../usuario/" target="_blank" rel="noopener"><i data-lucide="smartphone"></i> Ver menú del comensal</a>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="../shared/js/store.js"></script>
+    <script src="../shared/js/ui.js"></script>
+    <script src="assets/scripts/admin.js"></script>
 </body>
 </html>

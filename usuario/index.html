@@ -2,10 +2,15 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=html/menu.html">
-    <title>Q-RICO | Redirigiendo...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú digital | Q-RICO</title>
+    <script>
+        // Conserva el parámetro ?mesa=X del QR al redirigir al menú
+        location.replace('pages/menu.html' + location.search + location.hash);
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=pages/menu.html"></noscript>
 </head>
-<body>
-    <p>Redirigiendo al sistema...</p>
+<body style="font-family: system-ui, sans-serif; background:#EDE2CE; color:#1E1B18;">
+    <p style="padding:24px;">Abriendo el menú…</p>
 </body>
 </html>

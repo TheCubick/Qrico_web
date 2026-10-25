@@ -1,0 +1,71 @@
+<header class="toks-header" id="site-header">
+    <div class="toks-header__inner">
+        <div class="header-izq">
+            <a class="logo-box" href="#hero" aria-label="Inicio">
+                <img id="header-logo" src="../assets/images/logo/Logo_vector.jpg" alt="">
+            </a>
+            <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+                <a href="#seccion-ordenar" class="activo" data-nav="menu">Menú</a>
+                <span class="separador" aria-hidden="true">|</span>
+                <a href="#" data-nav="conocenos">Conócenos</a>
+                <span class="separador" aria-hidden="true">|</span>
+                <a href="#" data-nav="responsabilidad">Responsabilidad Social</a>
+            </nav>
+        </div>
+
+        <div class="header-der">
+            <button class="mesa-pill" id="btn-mesa" aria-label="Elegir o cambiar mesa">
+                <i data-lucide="map-pin" class="mesa-pill__pin"></i>
+                <span class="mesa-pill__text">
+                    <strong id="mesa-label">Elige tu mesa</strong>
+                    <span class="mesa-pill__estado" id="header-estado"></span>
+                </span>
+                <i data-lucide="chevron-down" class="mesa-pill__chev"></i>
+            </button>
+
+            <button class="btn-ordena" id="btn-ordena">ORDENA AQUÍ</button>
+
+            <div class="user-info">
+                <button class="saludo" id="btn-saludo" title="Escribe tu nombre para tus pedidos">
+                    <span id="saludo-texto">¡Hola, Invitado!</span>
+                    <i data-lucide="user-round"></i>
+                </button>
+                <button class="cart-btn" id="btn-carrito" aria-label="Ver pedido">
+                    <i data-lucide="shopping-bag"></i>
+                    <span class="cart-btn__count q-mono" id="cart-count">0</span>
+                </button>
+                <button class="burger-btn" id="btn-burger" aria-label="Abrir menú" aria-expanded="false">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegación móvil -->
+    <div class="mobile-nav" id="mobile-nav" hidden>
+        <a href="#seccion-ordenar" data-nav="menu"><i data-lucide="utensils"></i> Menú</a>
+        <a href="#" data-nav="conocenos"><i data-lucide="store"></i> Conócenos</a>
+        <a href="#" data-nav="responsabilidad"><i data-lucide="heart-handshake"></i> Responsabilidad Social</a>
+        <button data-nav="nombre"><i data-lucide="user-round"></i> <span id="mobile-saludo">¡Hola, Invitado!</span></button>
+    </div>
+</header>
+
+<!-- Drawer del pedido -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Tu pedido" aria-hidden="true">
+    <header class="drawer__header">
+        <div>
+            <span class="eyebrow" id="drawer-mesa">Sin mesa</span>
+            <h2 class="drawer__title">Tu pedido</h2>
+        </div>
+        <button class="q-icon-btn" id="btn-cerrar-drawer" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    </header>
+
+    <div class="drawer__tabs q-segmented" role="tablist">
+        <button class="is-active" data-tab="carrito" role="tab"><i data-lucide="shopping-bag"></i> Por enviar</button>
+        <button data-tab="cuenta" role="tab"><i data-lucide="receipt-text"></i> Cuenta de la mesa</button>
+    </div>
+
+    <div class="drawer__body" id="drawer-body"></div>
+    <footer class="drawer__footer" id="drawer-footer"></footer>
+</aside>

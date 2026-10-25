@@ -1,0 +1,26 @@
+<section class="view view-mesas">
+    <div class="view-head">
+        <div>
+            <span class="eyebrow">Salón en vivo</span>
+            <h2 class="view-title">Mesas y códigos QR</h2>
+            <p class="view-sub">Cada mesa tiene su propio QR que abre el menú y enlaza los pedidos con ella.</p>
+        </div>
+        <div class="view-actions">
+            <button class="q-btn q-btn--outline" id="mesas-imprimir-qr"><i data-lucide="printer"></i> Imprimir todos los QR</button>
+            <button class="q-btn q-btn--primary" id="mesas-agregar"><i data-lucide="plus"></i> Agregar mesa</button>
+        </div>
+    </div>
+
+    <div class="mesas-toolbar">
+        <div class="q-segmented" id="mesas-zonas"></div>
+        <ul class="mesas-legend">
+            <li><span class="legend-dot legend-dot--libre"></span>Libre</li>
+            <li><span class="legend-dot legend-dot--ocupada"></span>Ocupada</li>
+            <li><span class="legend-dot legend-dot--llamando"></span>Llamando mesero</li>
+            <li><span class="legend-dot legend-dot--cuenta"></span>Pidiendo cuenta</li>
+        </ul>
+    </div>
+
+    <div class="mesas-resumen" id="mesas-resumen"></div>
+    <div id="mesas-grid"></div>
+</section>

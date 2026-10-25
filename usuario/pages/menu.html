@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#D1312B">
+    <link rel="icon" type="image/png" href="../assets/images/logo/logomin.png">
+    <title>Menú | Q-RICO</title>
+
+    <!-- Tipografía -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Sistema de diseño + módulos -->
+    <link rel="stylesheet" href="../../shared/css/tokens.css">
+    <link rel="stylesheet" href="../assets/styles/menu.css">
+    <link rel="stylesheet" href="../assets/styles/header.css">
+    <link rel="stylesheet" href="../assets/styles/card.css">
+    <link rel="stylesheet" href="../assets/styles/cuadro_card.css">
+    <link rel="stylesheet" href="../assets/styles/footer.css">
+</head>
+<body class="comensal">
+
+    <div id="app-qrico">
+        <!-- 1. HEADER coral + drawer del pedido (header.html) -->
+        <div id="contenedor-header"></div>
+
+        <main id="menu-main">
+            <!-- 2. BANNER PROMOCIONAL (carrusel) -->
+            <section class="hero-banner" id="hero" aria-roledescription="carrusel" aria-label="Promociones">
+                <button class="arrow-btn left" id="hero-prev" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
+                <div class="banner-content" id="hero-slides"></div>
+                <button class="arrow-btn right" id="hero-next" aria-label="Siguiente"><i data-lucide="chevron-right"></i></button>
+                <div class="puntos-carrusel" id="hero-puntos"></div>
+            </section>
+
+            <!-- Cintilla informativa del negocio -->
+            <section class="cintilla-info" id="cintilla-info" aria-label="Información del restaurante"></section>
+
+            <!-- Seguimiento del pedido en vivo -->
+            <section class="tracker" id="tracker" aria-live="polite" hidden></section>
+
+            <!-- 3. MENÚ PARA ORDENAR EN LÍNEA -->
+            <section class="seccion-categorias" id="seccion-ordenar">
+                <h2 class="titulo-seccion">MENÚ PARA <span>ORDENAR EN LÍNEA</span></h2>
+                <p class="subtitulo-seccion" id="subtitulo-ordenar">Elige, personaliza y envía tu pedido directo a cocina desde tu mesa.</p>
+            </section>
+
+            <!-- Buscador, filtros y categorías (sidebar.html) — sticky con fondo sólido -->
+            <div id="contenedor-sidebar" class="catbar-slot"></div>
+
+            <section class="seccion-carrusel-tarjetas" id="seccion-carrusel">
+                <div class="controles-carrusel-tarjetas">
+                    <button class="flecha-carrusel" id="carrusel-prev" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
+                    <div class="pista-tarjetas" id="contenedor-productos"></div>
+                    <button class="flecha-carrusel" id="carrusel-next" aria-label="Siguiente"><i data-lucide="chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- 4. PLATILLOS DESTACADOS + listado por categoría -->
+            <section class="seccion-menu-completo" id="seccion-destacados">
+                <div class="seccion-interior">
+                    <h2 class="titulo-seccion">PLATILLOS <span>DESTACADOS</span></h2>
+                    <div class="cuadricula-productos" id="contenedor-cuadricula"></div>
+                    <div id="contenedor-secciones"></div>
+
+                    <div class="q-empty sin-resultados" id="sin-resultados" hidden>
+                        <i data-lucide="search-x"></i>
+                        <strong>No encontramos ese platillo</strong>
+                        <span>Prueba con otra palabra o quita los filtros.</span>
+                        <button class="q-btn q-btn--outline q-btn--sm" id="btn-limpiar-filtros">Limpiar búsqueda</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 6. FOOTER clásico (footer.html) -->
+        <div id="contenedor-footer"></div>
+    </div>
+
+    <!-- 5. Barra flotante de acciones de mesa -->
+    <nav class="action-dock" id="action-dock" aria-label="Acciones de la mesa">
+        <button class="dock-btn" id="btn-llamar-mesero">
+            <span class="dock-btn__icon"><i data-lucide="hand-platter"></i></span>
+            <span class="dock-btn__label">Llamar mesero</span>
+        </button>
+        <button class="dock-btn" id="btn-pedir-cuenta">
+            <span class="dock-btn__icon"><i data-lucide="receipt-text"></i></span>
+            <span class="dock-btn__label">Pedir la cuenta</span>
+        </button>
+        <button class="dock-cart" id="btn-dock-carrito">
+            <span class="dock-cart__count q-mono" id="dock-count">0</span>
+            <span class="dock-cart__label">Ver pedido</span>
+            <span class="dock-cart__total q-mono" id="dock-total">$0.00</span>
+        </button>
+    </nav>
+
+    <!-- Librerías -->
+    <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <!-- Núcleo compartido -->
+    <script src="../../shared/js/store.js"></script>
+    <script src="../../shared/js/ui.js"></script>
+    <!-- Lógica del comensal -->
+    <script src="../assets/scripts/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* =====================================================================
+   Q-RICO · Comensal — Tarjeta horizontal (cuadro_card.html) y modal
+   ===================================================================== */
+.cuadricula-productos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 860px) { .cuadricula-productos { grid-template-columns: 1fr; gap: 14px; } }
+
+.cuadro-platillo {
+    display: flex; min-height: 184px;
+    background: var(--q-blanco);
+    border: 1px solid var(--q-mostaza);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow .3s var(--q-ease), transform .3s var(--q-ease);
+}
+.cuadro-platillo:hover { box-shadow: 0 14px 30px -12px rgba(20, 18, 16, 0.2); transform: translateY(-3px); }
+.cuadro-platillo:focus-visible { outline: none; box-shadow: var(--q-focus); }
+
+.info-platillo { flex: 1; min-width: 0; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.titulo-platillo { font-size: 1.08rem; font-weight: 800; line-height: 1.25; color: var(--q-carbon); }
+.precio-rating { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.86rem; }
+.precio-rating .precio-actual { font-weight: 700; font-size: 1.05rem; color: var(--q-coral); }
+.separador-punto { color: var(--q-borde); }
+.rating { display: inline-flex; align-items: center; gap: 4px; color: var(--q-piedra); font-weight: 600; }
+.rating svg { width: 14px; height: 14px; color: var(--q-mostaza); }
+.desc-platillo {
+    font-size: 0.86rem; line-height: 1.5; color: var(--q-piedra); text-wrap: pretty;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.etiquetas-platillo { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.etiquetas-platillo:empty { display: none; }
+.etiqueta { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.02em; }
+.etiqueta svg { width: 13px; height: 13px; }
+.etiqueta--descuento { background: var(--q-coral); color: #fff; }
+.etiqueta--favorito { background: var(--q-mostaza); color: var(--q-carbon); }
+.etiqueta--rapido { background: var(--q-crema); color: #6B4A16; }
+.etiqueta--agotado { background: var(--q-carbon); color: #fff; }
+
+.img-platillo { position: relative; width: 40%; max-width: 210px; min-width: 130px; flex-shrink: 0; background: var(--q-crema); }
+.img-platillo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.btn-agregar {
+    position: absolute; right: 12px; bottom: 12px;
+    width: 46px; height: 46px; border-radius: 50%; border: 3px solid var(--q-blanco);
+    display: grid; place-items: center; background: var(--q-coral); color: #fff;
+    box-shadow: 0 8px 18px -6px rgba(20, 18, 16, 0.45);
+    transition: background-color .2s, transform .3s var(--q-ease);
+}
+.btn-agregar:hover { background: var(--q-coral-hover); transform: rotate(90deg) scale(1.06); }
+.btn-agregar:active { transform: scale(0.9); }
+.btn-agregar[disabled] { background: #A39A92; cursor: not-allowed; transform: none; }
+
+.cuadro-platillo.is-soldout { background: #FBF9F5; border-color: var(--q-borde); }
+.cuadro-platillo.is-soldout .img-platillo img { filter: grayscale(1); opacity: 0.6; }
+.cuadro-platillo.is-soldout .titulo-platillo, .cuadro-platillo.is-soldout .desc-platillo { color: var(--q-piedra); }
+.cuadro-platillo.is-soldout .precio-actual { color: var(--q-piedra); text-decoration: line-through; }
+
+@media (max-width: 420px) {
+    .info-platillo { padding: 14px; }
+    .img-platillo { min-width: 112px; }
+    .btn-agregar { width: 42px; height: 42px; right: 8px; bottom: 8px; }
+}
+
+/* ---------- Modal de detalle ---------- */
+.dish-modal .q-modal__body { padding: 0; }
+.dish-modal__media { position: relative; aspect-ratio: 16 / 10; background: var(--q-crema); }
+.dish-modal__media img { width: 100%; height: 100%; object-fit: cover; }
+.dish-modal__close { position: absolute; top: 14px; right: 14px; border: 0; box-shadow: 0 4px 12px rgba(20, 18, 16, 0.2); }
+.dish-modal__soldout { position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 99px; background: var(--q-carbon); color: #fff; font-weight: 800; font-size: 0.8rem; }
+.dish-modal__content { padding: 20px 22px 8px; display: flex; flex-direction: column; gap: 10px; }
+.dish-modal__badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.dish-modal__title { font-weight: 800; font-size: 1.6rem; text-transform: uppercase; letter-spacing: -0.01em; color: var(--q-carbon); }
+.dish-modal__desc { color: var(--q-piedra); line-height: 1.55; text-wrap: pretty; }
+.dish-modal__prices { display: flex; align-items: baseline; gap: 10px; }
+.dish-modal__price { font-size: 1.4rem; font-weight: 700; color: var(--q-coral); }
+.dish-modal__notes { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; padding-top: 14px; border-top: 1px dashed var(--q-borde); }
+.dish-modal__notes .q-label { display: inline-flex; align-items: center; gap: 6px; }
+.note-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.note-chip { height: 32px; padding: 0 12px; border-radius: 99px; border: 1px solid var(--q-crema); background: var(--q-crema); font-size: 0.8rem; font-weight: 600; color: var(--q-carbon); transition: all .2s var(--q-ease); }
+.note-chip:hover { border-color: var(--q-mostaza); }
+.note-chip.is-active { background: var(--q-blanco); border-color: var(--q-mostaza); color: #7A5520; box-shadow: inset 0 0 0 1px var(--q-mostaza); }
+.dish-modal .q-modal__footer { justify-content: space-between; align-items: center; background: var(--q-blanco); }
+.dish-modal__add { flex: 1; max-width: 320px; }
+.dish-modal__add b { font-weight: 700; }

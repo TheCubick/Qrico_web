@@ -1,0 +1,127 @@
+<section class="view view-config">
+    <div class="view-head">
+        <div>
+            <span class="eyebrow">Tu negocio en Q-RICO</span>
+            <h2 class="view-title">Configuración</h2>
+            <p class="view-sub">Personaliza tu marca y los datos que ven tus comensales. Los cambios se reflejan en el menú QR al guardar.</p>
+        </div>
+        <div class="view-actions">
+            <a class="q-btn q-btn--outline" href="../../../usuario/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Ver menú</a>
+            <button class="q-btn q-btn--primary" id="cfg-guardar" form="cfg-form"><i data-lucide="save"></i> Guardar cambios</button>
+        </div>
+    </div>
+
+    <div class="config-layout">
+        <form class="config-form" id="cfg-form" novalidate>
+            <article class="panel">
+                <header class="panel__head"><div><h3>Identidad</h3><p class="panel__sub">Nombre, logo y portada del menú</p></div></header>
+                <div class="q-form-grid">
+                    <div class="q-field"><label for="cfg-nombre">Nombre comercial</label><input class="q-input" id="cfg-nombre" required maxlength="40"></div>
+                    <div class="q-field"><label for="cfg-eslogan">Eslogan</label><input class="q-input" id="cfg-eslogan" maxlength="80"></div>
+
+                    <div class="q-field">
+                        <label>Logotipo</label>
+                        <div class="image-picker" data-picker="logo">
+                            <div class="image-picker__preview image-picker__preview--logo"><img id="cfg-logo-preview" alt="Vista previa del logo"></div>
+                            <div class="image-picker__controls">
+                                <label class="q-btn q-btn--outline q-btn--sm"><i data-lucide="upload"></i> Subir imagen<input type="file" accept="image/*" id="cfg-logo-file" hidden></label>
+                                <input class="q-input" id="cfg-logo-url" placeholder="o pega una URL de imagen">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="q-field">
+                        <label>Foto de portada</label>
+                        <div class="image-picker" data-picker="portada">
+                            <div class="image-picker__preview"><img id="cfg-portada-preview" alt="Vista previa de la portada"></div>
+                            <div class="image-picker__controls">
+                                <label class="q-btn q-btn--outline q-btn--sm"><i data-lucide="upload"></i> Subir imagen<input type="file" accept="image/*" id="cfg-portada-file" hidden></label>
+                                <input class="q-input" id="cfg-portada-url" placeholder="o pega una URL de imagen">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="panel">
+                <header class="panel__head"><div><h3>Contacto y servicio</h3><p class="panel__sub">Aparece en el pie del menú y en los tickets</p></div></header>
+                <div class="q-form-grid">
+                    <div class="q-field q-span-2"><label for="cfg-direccion">Dirección</label><input class="q-input" id="cfg-direccion" maxlength="120"></div>
+                    <div class="q-field"><label for="cfg-telefono">Teléfono</label><input class="q-input" id="cfg-telefono" maxlength="20" inputmode="tel"></div>
+                    <div class="q-field"><label for="cfg-horario">Horario</label><input class="q-input" id="cfg-horario" maxlength="60"></div>
+                    <div class="q-field"><label for="cfg-wifi-red">WiFi para clientes · red</label><input class="q-input" id="cfg-wifi-red" maxlength="40"></div>
+                    <div class="q-field"><label for="cfg-wifi-clave">WiFi · contraseña</label><input class="q-input" id="cfg-wifi-clave" maxlength="40"></div>
+                    <div class="q-field q-span-2">
+                        <label class="q-switch"><input type="checkbox" id="cfg-abierto"><span class="q-switch__track"></span><span class="q-switch__label">Restaurante abierto · recibiendo pedidos desde el QR</span></label>
+                    </div>
+                </div>
+            </article>
+
+            <article class="panel">
+                <header class="panel__head"><div><h3>Pie de página y redes sociales</h3><p class="panel__sub">Se muestran en el footer del menú QR. Deja vacía una red para ocultarla.</p></div></header>
+                <div class="q-form-grid">
+                    <div class="q-field q-span-2"><label for="cfg-frase">Frase del pie de página</label><input class="q-input" id="cfg-frase" maxlength="120"></div>
+                    <div class="q-field q-span-2"><label for="cfg-razon">Razón social (aparece en el copyright)</label><input class="q-input" id="cfg-razon" maxlength="80"></div>
+                    <div class="q-field"><label for="cfg-facebook">Facebook</label><input class="q-input" id="cfg-facebook" inputmode="url" placeholder="facebook.com/turestaurante"></div>
+                    <div class="q-field"><label for="cfg-instagram">Instagram</label><input class="q-input" id="cfg-instagram" inputmode="url" placeholder="instagram.com/turestaurante"></div>
+                    <div class="q-field"><label for="cfg-tiktok">TikTok</label><input class="q-input" id="cfg-tiktok" inputmode="url" placeholder="tiktok.com/@turestaurante"></div>
+                </div>
+            </article>
+
+            <article class="panel">
+                <header class="panel__head"><div><h3>Cobro y tickets</h3><p class="panel__sub">Moneda, propinas sugeridas y mensaje impreso</p></div></header>
+                <div class="q-form-grid">
+                    <div class="q-field">
+                        <label for="cfg-moneda">Moneda</label>
+                        <select class="q-select" id="cfg-moneda">
+                            <option value="MXN">Peso mexicano (MXN)</option>
+                            <option value="USD">Dólar estadounidense (USD)</option>
+                            <option value="EUR">Euro (EUR)</option>
+                            <option value="COP">Peso colombiano (COP)</option>
+                        </select>
+                    </div>
+                    <div class="q-field">
+                        <label for="cfg-propinas">Propinas sugeridas (%)</label>
+                        <input class="q-input q-mono" id="cfg-propinas" placeholder="0, 10, 15, 20">
+                        <span class="q-hint">Separadas por coma. Máximo 5 opciones.</span>
+                    </div>
+                    <div class="q-field">
+                        <label for="cfg-propina-default">Propina preseleccionada</label>
+                        <select class="q-select" id="cfg-propina-default"></select>
+                    </div>
+                    <div class="q-field q-span-2">
+                        <label for="cfg-mensaje">Mensaje al pie del ticket</label>
+                        <textarea class="q-textarea" id="cfg-mensaje" maxlength="160"></textarea>
+                    </div>
+                </div>
+            </article>
+        </form>
+
+        <aside class="config-side">
+            <article class="panel plan-card">
+                <span class="plan-card__badge"><i data-lucide="badge-check"></i> Suscripción activa</span>
+                <h3 class="q-display" id="cfg-plan-nombre">Q-RICO Estándar</h3>
+                <p class="plan-card__price"><span class="q-mono" id="cfg-plan-precio">$499</span> <small id="cfg-plan-periodo">MXN / mes</small></p>
+                <ul class="plan-card__features">
+                    <li><i data-lucide="check"></i> Menú QR ilimitado y mesas sin límite</li>
+                    <li><i data-lucide="check"></i> Cocina KDS, punto de venta y mapa de mesas</li>
+                    <li><i data-lucide="check"></i> Reportes y corte de caja en PDF</li>
+                    <li><i data-lucide="check"></i> Personal con PIN por rol</li>
+                </ul>
+                <p class="q-hint" id="cfg-plan-desde"></p>
+            </article>
+
+            <article class="panel">
+                <header class="panel__head"><div><h3>Respaldo</h3><p class="panel__sub">Descarga o restaura toda tu información</p></div></header>
+                <div class="stack-actions">
+                    <button class="q-btn q-btn--outline q-btn--block" id="cfg-exportar"><i data-lucide="download"></i> Descargar respaldo (.json)</button>
+                    <label class="q-btn q-btn--outline q-btn--block"><i data-lucide="upload"></i> Restaurar desde respaldo<input type="file" accept="application/json,.json" id="cfg-importar" hidden></label>
+                </div>
+            </article>
+
+            <article class="panel panel--danger">
+                <header class="panel__head"><div><h3>Datos de demostración</h3><p class="panel__sub">Vuelve al restaurante de ejemplo con menú, mesas y ventas precargadas.</p></div></header>
+                <button class="q-btn q-btn--danger q-btn--block" id="cfg-reset"><i data-lucide="rotate-ccw"></i> Restaurar datos de demostración</button>
+            </article>
+        </aside>
+    </div>
+</section>

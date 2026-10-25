@@ -1,0 +1,57 @@
+/* =====================================================================
+   Q-RICO · Comensal — Tarjeta vertical del carrusel (card.html)
+   ===================================================================== */
+.tarjeta-toks {
+    flex: 0 0 300px; width: 300px;
+    scroll-snap-align: start;
+    display: flex; flex-direction: column;
+    background: var(--q-blanco);
+    border: 1px solid #EFE6D6;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px -6px rgba(20, 18, 16, 0.12);
+    cursor: pointer;
+    transition: transform .35s var(--q-ease), box-shadow .35s var(--q-ease);
+}
+.tarjeta-toks:hover { transform: translateY(-6px); box-shadow: 0 18px 34px -12px rgba(20, 18, 16, 0.22); }
+.tarjeta-toks:focus-visible { outline: none; box-shadow: var(--q-focus); }
+
+.img-contenedor { position: relative; width: 100%; height: 220px; overflow: hidden; background: var(--q-crema); }
+.img-contenedor img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--q-ease); }
+.tarjeta-toks:hover .img-contenedor img { transform: scale(1.06); }
+
+.badge-esquina {
+    position: absolute; top: 12px; left: 12px;
+    display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border-radius: 99px;
+    font-size: 0.74rem; font-weight: 800; letter-spacing: 0.02em; box-shadow: 0 4px 12px rgba(20, 18, 16, 0.2);
+}
+.badge-esquina svg { width: 13px; height: 13px; }
+.badge-esquina--descuento { background: var(--q-coral); color: #fff; }
+.badge-esquina--favorito { background: var(--q-mostaza); color: var(--q-carbon); }
+.badge-esquina--agotado { background: var(--q-carbon); color: #fff; }
+
+.info-contenedor { flex: 1; padding: 18px 18px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.info-contenedor h3 { font-size: 1.12rem; font-weight: 800; line-height: 1.25; color: var(--q-carbon); }
+.info-contenedor h4.texto-coral { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--q-coral); }
+.tarjeta-precio { display: flex; align-items: baseline; gap: 8px; margin: 8px 0 14px; }
+.tarjeta-precio .precio-actual { font-size: 1.25rem; font-weight: 700; color: var(--q-coral); }
+.precio-original { color: var(--q-piedra); text-decoration: line-through; font-size: 0.85rem; }
+.tarjeta-acciones { margin-top: auto; display: flex; gap: 8px; width: 100%; }
+.btn-ver-mas, .btn-agregar-pill {
+    flex: 1; height: 42px; border-radius: 99px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    font-weight: 800; font-size: 0.78rem; letter-spacing: 0.05em; transition: all .25s var(--q-ease);
+}
+.btn-ver-mas svg, .btn-agregar-pill svg { width: 15px; height: 15px; }
+.btn-ver-mas { border: 1.5px solid var(--q-borde); background: var(--q-blanco); color: var(--q-carbon); }
+.btn-ver-mas:hover { border-color: var(--q-mostaza); background: var(--q-crema); }
+.btn-agregar-pill { border: 0; background: var(--q-coral); color: #fff; box-shadow: 0 6px 14px -6px rgba(209, 49, 43, 0.8); }
+.btn-agregar-pill:hover { background: var(--q-coral-hover); transform: translateY(-2px); }
+.btn-agregar-pill[disabled] { background: #CFC5B8; box-shadow: none; cursor: not-allowed; transform: none; }
+
+.tarjeta-toks.is-soldout .img-contenedor img { filter: grayscale(1); opacity: 0.65; }
+.tarjeta-toks.is-soldout .precio-actual { color: var(--q-piedra); text-decoration: line-through; }
+
+@media (max-width: 640px) {
+    .tarjeta-toks { flex-basis: 260px; width: 260px; }
+    .img-contenedor { height: 190px; }
+}

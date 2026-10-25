@@ -1,0 +1,21 @@
+<article class="cuadro-platillo {{clase}}" data-open="{{id}}" tabindex="0">
+    <div class="info-platillo">
+        <h3 class="titulo-platillo">{{nombre}}</h3>
+
+        <div class="precio-rating">
+            <span class="precio-actual q-mono">{{precio}}</span>
+            {{precioAnterior}}
+            <span class="separador-punto">•</span>
+            <span class="rating"><i data-lucide="timer"></i> {{tiempo}} min</span>
+        </div>
+
+        <p class="desc-platillo">{{descripcion}}</p>
+
+        <div class="etiquetas-platillo">{{badges}}</div>
+    </div>
+
+    <div class="img-platillo">
+        {{imagen}}
+        <button class="btn-agregar" data-add="{{id}}" aria-label="Agregar {{nombre}}" {{disabled}}><i data-lucide="plus"></i></button>
+    </div>
+</article>

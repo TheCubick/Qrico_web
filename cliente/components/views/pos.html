@@ -1,0 +1,38 @@
+<section class="view view-pos">
+    <div class="pos-layout">
+        <!-- Catálogo -->
+        <div class="pos-catalog panel">
+            <div class="pos-toolbar">
+                <label class="search-inline">
+                    <i data-lucide="search"></i>
+                    <input type="search" id="pos-buscar" placeholder="Buscar platillo…" autocomplete="off">
+                </label>
+                <div class="pos-open-accounts" id="pos-cuentas-abiertas"></div>
+            </div>
+            <div class="pos-cats" id="pos-cats"></div>
+            <div class="pos-grid" id="pos-grid"></div>
+        </div>
+
+        <!-- Ticket -->
+        <aside class="pos-ticket panel">
+            <header class="pos-ticket__head">
+                <div class="pos-ticket__title">
+                    <h3>Orden actual</h3>
+                    <button class="q-btn q-btn--ghost q-btn--sm" id="pos-limpiar"><i data-lucide="eraser"></i> Limpiar</button>
+                </div>
+                <div class="q-segmented pos-tipo" id="pos-tipo">
+                    <button data-tipo="mesa"><i data-lucide="armchair"></i> Mesa</button>
+                    <button data-tipo="mostrador"><i data-lucide="store"></i> Mostrador</button>
+                    <button data-tipo="llevar"><i data-lucide="shopping-bag"></i> Para llevar</button>
+                </div>
+                <div class="pos-mesa-row" id="pos-mesa-row">
+                    <select class="q-select" id="pos-mesa"></select>
+                </div>
+                <div id="pos-cuenta-mesa"></div>
+            </header>
+
+            <div class="pos-ticket__lines" id="pos-lines"></div>
+            <footer class="pos-ticket__foot" id="pos-foot"></footer>
+        </aside>
+    </div>
+</section>

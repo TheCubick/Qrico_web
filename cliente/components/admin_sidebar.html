@@ -1,0 +1,34 @@
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+        <span class="sidebar__logo"><img id="sidebar-logo" src="" alt=""></span>
+        <div class="sidebar__brand-text">
+            <strong id="sidebar-negocio">Restaurante</strong>
+            <span>con <b>Q</b><em>RICO</em></span>
+        </div>
+        <button class="sidebar__close" id="btn-cerrar-sidebar" aria-label="Cerrar menú"><i data-lucide="x"></i></button>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Secciones del panel">
+        <p class="sidebar__title">Operación</p>
+        <a href="#dashboard" class="nav-item" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+        <a href="#pos" class="nav-item" data-view="pos"><i data-lucide="calculator"></i><span>Punto de venta</span></a>
+        <a href="#kds" class="nav-item" data-view="kds"><i data-lucide="chef-hat"></i><span>Cocina (KDS)</span><span class="nav-badge q-mono" data-badge="kds" hidden></span></a>
+        <a href="#mesas" class="nav-item" data-view="mesas"><i data-lucide="armchair"></i><span>Mesas y QR</span><span class="nav-badge nav-badge--gold q-mono" data-badge="mesas" hidden></span></a>
+
+        <p class="sidebar__title">Mi negocio</p>
+        <a href="#menu_stock" class="nav-item" data-view="menu_stock"><i data-lucide="book-open-text"></i><span>Menú y stock</span><span class="nav-badge nav-badge--muted q-mono" data-badge="menu_stock" hidden></span></a>
+        <a href="#personal" class="nav-item" data-view="personal"><i data-lucide="users"></i><span>Personal</span></a>
+        <a href="#reportes" class="nav-item" data-view="reportes"><i data-lucide="trending-up"></i><span>Reportes</span></a>
+        <a href="#configuracion" class="nav-item" data-view="configuracion"><i data-lucide="settings"></i><span>Configuración</span></a>
+    </nav>
+
+    <div class="sidebar__footer">
+        <div class="plan-mini">
+            <span class="plan-mini__icon"><i data-lucide="badge-check"></i></span>
+            <div>
+                <strong id="sidebar-plan">Plan Estándar</strong>
+                <span class="q-mono" id="sidebar-plan-precio">$499 MXN/mes</span>
+            </div>
+        </div>
+    </div>
+</aside>
