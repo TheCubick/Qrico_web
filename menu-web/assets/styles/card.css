@@ -1,0 +1,74 @@
+/* =====================================================================
+   Q-RICO · Menú web — Tarjeta vertical de favoritos (card.html)
+   Fotografía protagonista, categoría sutil, título, precio y una sola acción.
+   Swiper aplica la perspectiva 3D (coverflow) sobre cada tarjeta.
+   ===================================================================== */
+.tarjeta-toks {
+    width: 272px;
+    display: flex; flex-direction: column;
+    background: var(--q-blanco);
+    border: 1px solid rgba(209, 160, 89, 0.3);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 24px 40px -26px rgba(20, 18, 16, 0.5), 0 2px 6px rgba(20, 18, 16, 0.05);
+    cursor: pointer;
+    transition: box-shadow .45s var(--q-ease), border-color .3s;
+}
+/* Todas las tarjetas del carrusel miden lo mismo, aunque el título o el precio ocupen más líneas */
+.favoritos-swiper .tarjeta-toks { height: auto; }
+/* Las tarjetas laterales (inclinadas y más pequeñas) solo se traen al centro; las acciones viven en la activa */
+.favoritos-swiper.swiper-initialized .tarjeta-toks:not(.swiper-slide-active) .control-carrito { pointer-events: none; }
+.tarjeta-toks:hover { border-color: var(--q-mostaza); box-shadow: 0 30px 46px -24px rgba(20, 18, 16, 0.55), 0 2px 6px rgba(20, 18, 16, 0.06); }
+.tarjeta-toks:focus-visible { outline: none; box-shadow: var(--q-focus), 0 24px 40px -26px rgba(20, 18, 16, 0.5); }
+
+.img-contenedor { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: var(--q-crema); }
+.img-contenedor img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--q-ease); }
+.tarjeta-toks:hover .img-contenedor img { transform: scale(1.05); }
+/* Sombra interior inferior: da profundidad a la fotografía */
+.img-contenedor::after {
+    content: ''; position: absolute; inset: auto 0 0 0; height: 38%; pointer-events: none;
+    background: linear-gradient(to top, rgba(20, 18, 16, 0.22), transparent);
+}
+
+.badge-esquina {
+    position: absolute; top: 12px; left: 12px; z-index: 1;
+    display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border-radius: 99px;
+    font-size: 0.74rem; font-weight: 800; letter-spacing: 0.02em; box-shadow: 0 4px 12px rgba(20, 18, 16, 0.2);
+}
+.badge-esquina--descuento { background: var(--q-coral); color: #fff; }
+
+.info-contenedor { flex: 1; padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; text-align: left; }
+.tarjeta-categoria {
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6326;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.info-contenedor h3 {
+    font-family: var(--q-font-display); font-size: 1.14rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; color: var(--q-carbon);
+    min-height: 2.5em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.tarjeta-pie { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 10px; }
+.tarjeta-precio { display: flex; flex-direction: column; line-height: 1.15; }
+.tarjeta-precio .precio-actual { font-size: 1.15rem; font-weight: 700; color: var(--q-coral); }
+.precio-original { color: var(--q-piedra); text-decoration: line-through; font-size: 0.8rem; }
+
+/* Única acción de la tarjeta: "Agregar", que se transforma en contador */
+.btn-agregar-pill {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 44px; padding: 0 16px;
+    border: 0; border-radius: 99px; background: var(--q-coral); color: #fff;
+    font-weight: 800; font-size: 0.84rem; white-space: nowrap;
+    box-shadow: 0 8px 16px -8px rgba(209, 49, 43, 0.85);
+    transition: background-color .2s, transform .3s var(--q-ease);
+}
+.btn-agregar-pill svg { width: 16px; height: 16px; }
+.btn-agregar-pill:hover { background: var(--q-coral-hover); transform: translateY(-1px); }
+.btn-agregar-pill:active { transform: scale(0.94); }
+.btn-agotado { display: inline-flex; align-items: center; gap: 5px; height: 32px; padding: 0 11px; border-radius: 99px; background: var(--q-carbon); color: #fff; font-size: 0.74rem; font-weight: 800; }
+.btn-agotado svg { width: 13px; height: 13px; }
+
+.tarjeta-toks.is-soldout .img-contenedor img { filter: grayscale(1); opacity: 0.65; }
+.tarjeta-toks.is-soldout .precio-actual { color: var(--q-piedra); text-decoration: line-through; }
+
+@media (max-width: 640px) {
+    .tarjeta-toks { width: min(76vw, 262px); }
+    .info-contenedor { padding: 12px 14px 14px; }
+}

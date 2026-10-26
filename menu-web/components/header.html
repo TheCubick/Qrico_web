@@ -1,0 +1,60 @@
+<header class="toks-header" id="site-header">
+    <div class="toks-header__inner">
+        <div class="header-izq">
+            <a class="logo-box" href="#hero" aria-label="Ir al inicio">
+                <img id="header-logo" src="../assets/images/logo/Logo_vector.jpg" alt="">
+            </a>
+            <div class="header-marca">
+                <strong class="header-marca__nombre" id="header-nombre">Q-RICO</strong>
+                <span class="header-marca__estado" id="header-estado"><span class="dot dot--open"></span>Abierto</span>
+            </div>
+            <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+                <a href="#sec-favoritos" class="activo" data-nav="menu">Menú</a>
+                <span class="separador" aria-hidden="true">|</span>
+                <a href="#" data-nav="conocenos">Conócenos</a>
+                <span class="separador" aria-hidden="true">|</span>
+                <a href="#" data-nav="ubicacion">Ubicación y WiFi</a>
+            </nav>
+        </div>
+
+        <div class="header-der">
+            <button class="cart-btn" id="btn-carrito" aria-label="Ver mi pedido">
+                <i data-lucide="shopping-bag"></i>
+                <span class="cart-btn__label">Mi pedido</span>
+                <span class="cart-btn__count q-mono is-empty" id="cart-count">0</span>
+            </button>
+            <button class="burger-btn" id="btn-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Navegación móvil -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación" hidden>
+        <a href="#sec-favoritos" data-nav="menu"><i data-lucide="utensils"></i> Menú</a>
+        <a href="#" data-nav="conocenos"><i data-lucide="store"></i> Conócenos</a>
+        <a href="#" data-nav="ubicacion"><i data-lucide="map-pin"></i> Ubicación y WiFi</a>
+    </nav>
+</header>
+
+<!-- Drawer del pedido: panel lateral en escritorio y hoja inferior (bottom sheet) en móvil -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Tu pedido" aria-hidden="true" data-lenis-prevent>
+    <span class="drawer__grabber" id="drawer-grabber" aria-hidden="true"></span>
+    <header class="drawer__header" id="drawer-header">
+        <div class="drawer__titulos">
+            <span class="drawer__modo" id="drawer-modo"></span>
+            <h2 class="drawer__title" id="drawer-titulo">Tu pedido</h2>
+        </div>
+        <button class="q-icon-btn" id="btn-cerrar-drawer" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    </header>
+
+    <!-- Las pestañas solo aparecen cuando se entró con el QR de una mesa -->
+    <div class="drawer__tabs q-segmented" id="drawer-tabs" role="tablist" hidden>
+        <button class="is-active" data-tab="carrito" role="tab"><i data-lucide="shopping-bag"></i> Tu pedido</button>
+        <button data-tab="cuenta" role="tab"><i data-lucide="receipt-text"></i> Cuenta de la mesa</button>
+    </div>
+
+    <div class="drawer__body" id="drawer-body"></div>
+    <footer class="drawer__footer" id="drawer-footer"></footer>
+</aside>

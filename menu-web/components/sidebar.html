@@ -1,0 +1,23 @@
+<div class="catbar" id="catbar">
+    <div class="catbar__inner">
+        <div class="catbar__pista">
+            <!-- Flechas para desplazar los chips con el ratón (solo en equipos con puntero fino) -->
+            <button type="button" class="catbar__flecha catbar__flecha--izq" id="chips-prev" aria-label="Ver categorías anteriores" hidden><i data-lucide="chevron-left"></i></button>
+            <!-- Chips de categoría con indicador deslizante (se generan en menu.js) -->
+            <nav class="catbar__chips" id="chips-categorias" aria-label="Categorías del menú"></nav>
+            <button type="button" class="catbar__flecha catbar__flecha--der" id="chips-next" aria-label="Ver más categorías" hidden><i data-lucide="chevron-right"></i></button>
+        </div>
+
+        <!-- Buscador tipo píldora: fijo en escritorio, se expande desde la lupa en móvil -->
+        <div class="catbar__buscar">
+            <button type="button" class="catbar__lupa" id="btn-abrir-buscador" aria-label="Buscar platillo o ingrediente" aria-expanded="false" aria-controls="buscador">
+                <i data-lucide="search"></i>
+            </button>
+            <label class="search" for="buscador">
+                <i data-lucide="search"></i>
+                <input type="search" id="buscador" placeholder="Buscar platillo o ingrediente..." autocomplete="off" enterkeyhint="search">
+                <button type="button" class="search__clear" id="buscador-limpiar" aria-label="Limpiar búsqueda" hidden><i data-lucide="x"></i></button>
+            </label>
+        </div>
+    </div>
+</div>

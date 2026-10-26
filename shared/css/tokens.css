@@ -154,6 +154,7 @@ i[data-lucide] { display: inline-block; width: 1.15em; height: 1.15em; }
     background: rgba(30, 27, 24, 0.48); backdrop-filter: blur(3px);
 }
 .q-modal {
+    position: relative;
     width: 100%; max-height: calc(100dvh - 32px); display: flex; flex-direction: column;
     background: var(--q-blanco); border-radius: var(--q-radius-lg); box-shadow: var(--q-shadow-lg); overflow: hidden;
 }
@@ -166,9 +167,19 @@ i[data-lucide] { display: inline-block; width: 1.15em; height: 1.15em; }
 .q-modal__body { padding: 22px; overflow-y: auto; }
 .q-modal__footer { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; padding: 16px 22px; border-top: 1px solid var(--q-borde); background: var(--q-crema-claro); }
 .q-confirm-text { color: var(--q-piedra); }
+/* Barra para arrastrar la hoja hacia abajo: solo existe en móvil */
+.q-sheet-grabber { display: none; }
 @media (max-width: 640px) {
+    /* En móvil todo modal se abre como hoja inferior (bottom sheet) */
     .q-modal-backdrop { place-items: end center; padding: 0; }
-    .q-modal { max-width: 100% !important; border-radius: var(--q-radius-lg) var(--q-radius-lg) 0 0; max-height: 92dvh; }
+    .q-modal { max-width: 100% !important; border-radius: 24px 24px 0 0; max-height: 90dvh; }
+    .q-modal__header { padding-top: 28px; }
+    .q-modal__footer { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+    .q-sheet-grabber {
+        display: flex; justify-content: center; position: absolute; top: 0; left: 0; right: 0; z-index: 5;
+        height: 26px; touch-action: none; cursor: grab;
+    }
+    .q-sheet-grabber::before { content: ''; width: 44px; height: 5px; margin-top: 9px; border-radius: 99px; background: rgba(30, 27, 24, 0.22); }
 }
 
 /* ---------- Toasts ---------- */
@@ -188,7 +199,11 @@ i[data-lucide] { display: inline-block; width: 1.15em; height: 1.15em; }
 .q-toast--error { border-left-color: var(--q-coral); }
 .q-toast--error svg { color: #F08A85; }
 .q-toast--order { border-left-color: var(--q-coral); }
-@media (max-width: 640px) { .q-toast-stack { left: 16px; right: 16px; align-items: stretch; bottom: 88px; } .q-toast { max-width: none; } }
+/* En móvil los avisos van arriba para no tapar la barra de mesa ni los botones del drawer o los modales */
+@media (max-width: 640px) {
+    .q-toast-stack { left: 16px; right: 16px; align-items: stretch; top: calc(12px + env(safe-area-inset-top)); bottom: auto; }
+    .q-toast { max-width: none; }
+}
 
 /* Estado vacío */
 .q-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 36px 16px; text-align: center; color: var(--q-piedra); }

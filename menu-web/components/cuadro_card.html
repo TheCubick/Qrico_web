@@ -1,0 +1,16 @@
+<article class="cuadro-platillo {{clase}}" data-open="{{id}}" data-platillo="{{id}}" tabindex="0" aria-label="{{nombre}}, {{precio}}">
+    <div class="info-platillo">
+        {{etiqueta}}
+        <h3 class="titulo-platillo">{{nombre}}</h3>
+        <p class="desc-platillo">{{descripcion}}</p>
+        <div class="precio-platillo">
+            <span class="precio-actual q-mono">{{precio}}</span>
+            {{precioAnterior}}
+        </div>
+    </div>
+
+    <div class="img-platillo">
+        <div class="img-platillo__foto">{{imagen}}</div>
+        <div class="control-carrito" data-control="{{id}}" data-variante="circulo"></div>
+    </div>
+</article>

@@ -1,0 +1,9 @@
+# Archivos que Windows y OneDrive generan en cada carpeta
+[Dd]esktop.ini
+Thumbs.db
+
+# Entorno virtual de Python (solo se usa para servir el sitio en local)
+.venv/
+
+# Dependencias de npm (las librerías que usa el sitio se copian a shared/vendor/)
+node_modules/

@@ -1,0 +1,17 @@
+{
+  "name": "qrico-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Q-RICO: menú web del comensal y panel administrativo (sitio estático sin compilación)",
+  "scripts": {
+    "postinstall": "node scripts/vendor.mjs",
+    "vendor": "node scripts/vendor.mjs",
+    "start": "npx serve ."
+  },
+  "dependencies": {
+    "canvas-confetti": "1.9.4",
+    "gsap": "3.15.0",
+    "lenis": "1.3.26",
+    "swiper": "11.2.10"
+  }
+}
