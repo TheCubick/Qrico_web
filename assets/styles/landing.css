@@ -231,6 +231,118 @@ a { color: inherit; }
 
 @media (min-width: 900px) { .pasos { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
 
+/* ---------- Demo interactiva en vivo ---------- */
+.demo {
+    background:
+        radial-gradient(50% 40% at 85% 0%, rgba(209, 160, 89, 0.18), transparent 70%),
+        var(--q-carbon);
+    color: #fff;
+}
+.seccion__cabeza--claro p:not(.etiqueta) { color: rgba(255, 255, 255, 0.72); }
+.demo .etiqueta { color: var(--q-mostaza); }
+
+.demo__selector, .demo__vistas {
+    display: flex; gap: 4px; padding: 4px; border-radius: var(--q-radius-pill);
+    background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.demo__selector { max-width: 460px; margin: 0 auto 24px; }
+.demo__selector button, .demo__vistas button {
+    flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 44px; padding: 0 14px; border: 0; border-radius: var(--q-radius-pill);
+    background: transparent; color: rgba(255, 255, 255, 0.72); font-weight: 700; font-size: 0.88rem;
+    transition: background-color .2s, color .2s;
+}
+.demo__selector button.is-active, .demo__vistas button.is-active { background: var(--q-blanco); color: var(--q-carbon); }
+.demo__selector button:focus-visible, .demo__vistas button:focus-visible { outline: none; box-shadow: var(--q-focus); }
+.demo__vistas { margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
+.demo__vistas::-webkit-scrollbar { display: none; }
+.demo__vistas button { white-space: nowrap; }
+
+.demo__grid { display: grid; gap: 32px; align-items: start; }
+.demo__pane { display: none; }
+.demo__pane.is-active { display: block; }
+
+.demo__rotulo {
+    display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 14px;
+    font-size: 0.85rem; font-weight: 700; color: rgba(255, 255, 255, 0.72);
+}
+
+/* Los iframes se dibujan a tamaño real y se escalan para caber en su marco */
+.demo-escala { position: relative; overflow: hidden; width: 100%; background: var(--q-crema-claro); }
+.demo-escala iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; background: var(--q-crema-claro); }
+
+.demo-telefono {
+    width: min(330px, 100%); margin: 0 auto; padding: 10px;
+    border-radius: 44px; background: #0F0D0B; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.demo-telefono .demo-escala { border-radius: 34px; }
+
+.demo-navegador {
+    overflow: hidden; border-radius: var(--q-radius-lg);
+    background: #0F0D0B; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.demo-navegador__barra { display: flex; align-items: center; gap: 6px; padding: 10px 14px; }
+.demo-navegador__barra span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.18); }
+.demo-navegador__barra em {
+    flex: 1; margin-left: 10px; padding: 4px 12px; border-radius: var(--q-radius-pill);
+    background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.55);
+    font-style: normal; font-size: 0.75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.demo__abrir {
+    display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; margin-top: 10px;
+    color: var(--q-mostaza); font-weight: 700; font-size: 0.9rem; text-decoration: none;
+}
+.demo__abrir:hover { text-decoration: underline; }
+
+.demo__pie {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px;
+    margin-top: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.6);
+}
+.demo__pie > span { display: inline-flex; align-items: center; gap: 6px; }
+.demo__reiniciar {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2); border-radius: var(--q-radius-pill);
+    background: transparent; color: rgba(255, 255, 255, 0.85); font-weight: 600; font-size: 0.85rem;
+}
+.demo__reiniciar:hover { border-color: var(--q-mostaza); color: #fff; }
+
+@media (min-width: 1000px) {
+    .demo__selector { display: none; }
+    .demo__grid { grid-template-columns: 320px 1fr; gap: 40px; }
+    .demo__pane { display: block; }
+    .demo-telefono { width: 100%; }
+}
+
+/* Acceso rápido por rol */
+.roles { margin-top: 72px; }
+.roles__titulo { text-align: center; font-family: var(--q-font-display); font-weight: 700; font-size: clamp(1.4rem, 3.4vw, 1.9rem); }
+.roles__titulo span { color: var(--q-mostaza); font-family: var(--q-font-ui); font-size: 0.6em; font-weight: 700; vertical-align: middle; }
+.roles__bajada { text-align: center; margin: 10px auto 28px; max-width: 56ch; color: rgba(255, 255, 255, 0.7); }
+.roles__grid { display: grid; gap: 14px; }
+
+.rol-card {
+    display: flex; flex-direction: column; gap: 6px; padding: 24px;
+    border-radius: var(--q-radius-lg); text-decoration: none; color: #fff;
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: transform .25s var(--q-ease), background-color .25s, border-color .25s;
+}
+.rol-card:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.09); border-color: var(--q-mostaza); }
+.rol-card:focus-visible { outline: none; box-shadow: var(--q-focus); }
+.rol-card__icono {
+    display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 6px;
+    border-radius: var(--q-radius); background: rgba(209, 49, 43, 0.18); color: #FF8A84;
+}
+.rol-card strong { font-size: 1.1rem; }
+.rol-card__pin { font-size: 1.9rem; font-weight: 700; letter-spacing: 0.18em; color: var(--q-mostaza); }
+.rol-card small { color: rgba(255, 255, 255, 0.65); font-size: 0.86rem; flex: 1; }
+.rol-card__cta { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-weight: 700; font-size: 0.9rem; }
+.rol-card:hover .rol-card__cta svg { transform: translateX(3px); }
+.rol-card__cta svg { transition: transform .2s var(--q-ease); }
+
+@media (min-width: 640px) { .roles__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .roles__grid { grid-template-columns: repeat(4, 1fr); } }
+
 /* ---------- Plan y precio ---------- */
 .plan {
     display: grid; max-width: 940px; margin: 0 auto; overflow: hidden;

@@ -1,0 +1,5 @@
+# Q-RICO · Reglas para rastreadores
+User-agent: *
+Allow: /
+
+Sitemap: https://qrico-web.onrender.com/sitemap.xml

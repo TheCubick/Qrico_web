@@ -467,7 +467,7 @@
         const n = S().negocio;
         const pills = [];
         if (n.horario) pills.push('<span class="cintilla__pill">' + QUI.icon('clock') + '<span>' + esc(n.horario) + '</span></span>');
-        if (n.direccion) pills.push('<a class="cintilla__pill cintilla__pill--accion" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(n.direccion) + '" target="_blank" rel="noopener" title="' + esc(n.direccion) + '">' + QUI.icon('map-pin') + '<span>Cómo llegar</span></a>');
+        if (n.direccion) pills.push('<a class="cintilla__pill cintilla__pill--accion" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(n.direccion) + '" target="_blank" rel="noopener noreferrer" title="' + esc(n.direccion) + '">' + QUI.icon('map-pin') + '<span>Cómo llegar</span></a>');
         if (n.wifi && n.wifi.red) pills.push('<button type="button" class="cintilla__pill cintilla__pill--accion" data-copiar-wifi>' + QUI.icon('wifi') + '<span>WiFi: copiar clave</span></button>');
         const cont = $('#cintilla-info');
         cont.hidden = !pills.length;
@@ -501,7 +501,8 @@
         contacto.href = n.telefono ? 'tel:' + n.telefono.replace(/[^\d+]/g, '') : '#';
         const redes = n.redes || {};
         $$('#footer-redes [data-red]').forEach(a => {
-            const url = redes[a.dataset.red];
+            // Solo enlaces web: se descarta cualquier javascript:, vbscript:, etc.
+            const url = /^https?:/i.test(QStore.sanitizeUrl(redes[a.dataset.red])) ? redes[a.dataset.red].trim() : '';
             a.hidden = !url;
             if (url) a.href = url;
         });
@@ -1006,7 +1007,7 @@
                         (n.horario ? '<li>' + QUI.icon('clock') + '<span>' + esc(n.horario) + '</span></li>' : '') +
                         (n.telefono ? '<li>' + QUI.icon('phone') + '<a href="tel:' + esc(n.telefono.replace(/[^\d+]/g, '')) + '">' + esc(n.telefono) + '</a></li>' : '') +
                     '</ul>' +
-                    (maps ? '<a class="q-btn q-btn--outline q-btn--block info-modal__maps" href="' + maps + '" target="_blank" rel="noopener">' + QUI.icon('navigation') + 'Abrir en Google Maps</a>' : '') +
+                    (maps ? '<a class="q-btn q-btn--outline q-btn--block info-modal__maps" href="' + maps + '" target="_blank" rel="noopener noreferrer">' + QUI.icon('navigation') + 'Abrir en Google Maps</a>' : '') +
                     (n.wifi && n.wifi.red
                         ? '<div class="wifi-card">' + QUI.icon('wifi') +
                             '<div class="wifi-card__datos"><small>Red</small><strong>' + esc(n.wifi.red) + '</strong>' +

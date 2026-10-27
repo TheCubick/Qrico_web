@@ -6,6 +6,10 @@
     <meta name="theme-color" content="#1E1B18">
     <link rel="icon" type="image/png" href="../../menu-web/assets/images/logo/logomin.png">
     <title>Panel | Q-RICO</title>
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Seguridad -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <script>
         // Sin sesión activa → regreso al acceso por PIN
         if (!sessionStorage.getItem('qrico_sesion')) location.replace('../index.html');
@@ -39,7 +43,7 @@
                 <div class="topbar__actions">
                     <div class="topbar__clock q-mono" id="reloj-admin">--:--</div>
 
-                    <a class="q-btn q-btn--outline q-btn--sm topbar__menu-link" href="../../menu-web/" target="_blank" rel="noopener">
+                    <a class="q-btn q-btn--outline q-btn--sm topbar__menu-link" href="../../menu-web/" target="_blank" rel="noopener noreferrer">
                         <i data-lucide="smartphone"></i><span>Menú QR</span>
                     </a>
 

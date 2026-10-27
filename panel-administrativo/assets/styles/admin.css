@@ -44,6 +44,11 @@
 .pin-card__icon { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--q-coral-soft); color: var(--q-coral); margin-bottom: 6px; }
 .pin-card h2 { font-family: var(--q-font-display); font-weight: 600; font-size: 1.6rem; }
 .pin-card > p { font-size: 0.88rem; min-height: 2.6em; }
+/* Bloqueo temporal por intentos fallidos */
+.pin-card.is-locked { border-color: var(--q-coral); box-shadow: 0 0 0 3px var(--q-coral-soft), var(--q-shadow-md); }
+.pin-card.is-locked .pin-pad button, .pin-demo button:disabled { opacity: .4; cursor: not-allowed; }
+.pin-alerta { display: inline-flex; align-items: flex-start; gap: 8px; color: var(--q-coral); font-weight: 600; text-align: left; }
+.pin-alerta svg { margin-top: 2px; }
 .pin-dots { display: flex; gap: 14px; margin: 14px 0 18px; }
 .pin-dots span { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #CDBE9F; transition: background-color .2s, border-color .2s, transform .2s var(--q-ease); }
 .pin-dots span.is-filled { background: var(--q-carbon); border-color: var(--q-carbon); }

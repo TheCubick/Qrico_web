@@ -45,10 +45,27 @@
             .replace(/^cliente\//, 'panel-administrativo/');
     }
 
+    /**
+     * Devuelve la URL solo si usa un protocolo seguro: https:, http:, data:image/, blob: o una ruta relativa.
+     * Cualquier otro esquema (javascript:, vbscript:, data:text/html…) se descarta y regresa ''.
+     */
+    function sanitizeUrl(url) {
+        if (typeof url !== 'string') return '';
+        // Se quitan espacios y caracteres de control que algunos navegadores ignoran (p. ej. "java\tscript:")
+        const limpia = url.trim().replace(/[\u0000-\u001F\u007F\s]+/g, '');
+        if (!limpia) return '';
+        if (/^(https?:|blob:)/i.test(limpia)) return url.trim();
+        if (/^data:image\/(png|jpe?g|gif|webp|avif|svg\+xml)[;,]/i.test(limpia)) return url.trim();
+        // Con esquema explícito pero no permitido: se bloquea
+        if (/^[a-z][a-z0-9+.-]*:/i.test(limpia)) return '';
+        return url.trim();
+    }
+
     function resolveAsset(path) {
-        if (!path) return PLACEHOLDER;
-        if (/^(data:|https?:|blob:)/i.test(path)) return path;
-        return new URL(normalizarRuta(path), ROOT).href;
+        const segura = sanitizeUrl(path);
+        if (!segura) return PLACEHOLDER;
+        if (/^(data:|https?:|blob:)/i.test(segura)) return segura;
+        return new URL(normalizarRuta(segura), ROOT).href;
     }
 
     function escapeHtml(value) {
@@ -355,9 +372,66 @@
      * Devuelve null si la versión no se puede migrar (en ese caso se cargan los datos de demostración).
      */
     function actualizarEsquema(data) {
-        if (!data || typeof data !== 'object') return null;
+        if (!data || typeof data !== 'object' || Array.isArray(data)) return null;
         if (data.version === 3) migrarV3aV4(data);
-        return data.version === SCHEMA_VERSION ? migrar(data) : null;
+        return data.version === SCHEMA_VERSION ? sanear(migrar(data)) : null;
+    }
+
+    /* ---------- Integridad del estado ----------
+       El estado vive en localStorage y en respaldos importados, así que cualquiera puede alterarlo
+       desde la consola. Antes de usarlo se validan colecciones, tipos numéricos, identificadores,
+       valores de catálogo y URLs. Así ningún dato manipulado llega a la interfaz como HTML. */
+    const COLECCIONES = ['categorias', 'platillos', 'mesas', 'pedidos', 'alertas', 'ventas', 'personal'];
+    const CAMPOS_NUMERICOS = ['precio', 'precioAnterior', 'cantidad', 'capacidad', 'tiempo', 'folio', 'monto', 'total',
+        'subtotal', 'propina', 'propinaPct', 'propinaDefault', 'recibido', 'cambio', 'orden', 'personas', 'rev',
+        'creadoEn', 'actualizadoEn', 'abiertaEn', 'cerradoEn', 'atendidaEn', 'at', 'desde'];
+    // Campos que terminan como clases CSS, atributos o nombres de icono: solo letras, números, guion y guion bajo
+    const CAMPOS_CLAVE = ['id', 'estado', 'rol', 'metodo', 'tipo', 'origen', 'icono'];
+    const soloClave = v => String(v).replace(/[^\w-]/g, '');
+
+    function sanearValor(obj) {
+        if (Array.isArray(obj)) { obj.forEach(sanearValor); return; }
+        if (!obj || typeof obj !== 'object') return;
+        Object.keys(obj).forEach(k => {
+            const v = obj[k];
+            if (k === '__proto__' || k === 'constructor' || k === 'prototype') { delete obj[k]; return; }
+            if (v && typeof v === 'object') { sanearValor(v); return; }
+            if (CAMPOS_NUMERICOS.includes(k)) {
+                if (v == null || v === '') return;
+                const n = Number(v);
+                obj[k] = Number.isFinite(n) ? n : 0;
+            } else if ((CAMPOS_CLAVE.includes(k) || /Id$/.test(k)) && v != null && typeof v !== 'boolean') {
+                obj[k] = soloClave(v);
+            }
+        });
+    }
+
+    function sanear(data) {
+        COLECCIONES.forEach(c => { if (!Array.isArray(data[c])) data[c] = []; });
+        if (!data.negocio || typeof data.negocio !== 'object') data.negocio = {};
+        sanearValor(data);
+        // Valores de catálogo: lo desconocido se reemplaza por un valor válido
+        data.pedidos.forEach(p => {
+            if (!ESTADOS_PEDIDO[p.estado]) p.estado = 'pendiente';
+            if (!TIPOS_PEDIDO[p.tipo]) p.tipo = p.mesaId ? 'mesa' : 'mostrador';
+            if (!Array.isArray(p.items)) p.items = [];
+        });
+        // Un rol desconocido no puede iniciar sesión: queda como mesero inactivo hasta que el gerente lo corrija
+        data.personal.forEach(u => { if (!ROLES[u.rol]) { u.rol = 'mesero'; u.activo = false; } });
+        // Una imagen con protocolo no permitido se vacía (la interfaz muestra la imagen de respaldo)
+        const urlSegura = v => (typeof v === 'string' && v && !sanitizeUrl(v)) ? '' : v;
+        data.platillos.forEach(p => { p.imagen = urlSegura(p.imagen); });
+        const n = data.negocio;
+        n.logo = urlSegura(n.logo);
+        n.portada = urlSegura(n.portada);
+        // Redes sociales: solo enlaces web
+        if (n.redes && typeof n.redes === 'object') {
+            Object.keys(n.redes).forEach(r => {
+                const u = sanitizeUrl(n.redes[r]);
+                n.redes[r] = /^https?:/i.test(u) ? u : '';
+            });
+        }
+        return data;
     }
 
     function readRaw() {
@@ -528,7 +602,7 @@
     global.QStore = {
         KEY: STORE_KEY, VERSION: SCHEMA_VERSION, ROOT, PLACEHOLDER, ESTADOS_MESA, ESTADOS_PEDIDO, TIPOS_PEDIDO, ROLES,
         get, update, subscribe, reset, seed, actualizarEsquema,
-        uid, money, round2, totalItems, escapeHtml, resolveAsset, startOfDay, minutesSince, formatTimer,
+        uid, money, round2, totalItems, escapeHtml, sanitizeUrl, resolveAsset, startOfDay, minutesSince, formatTimer,
         compressImage, urlMenuMesa,
         q: Q
     };

@@ -22,7 +22,9 @@
     }
 
     function icon(name, extraClass) {
-        return '<i data-lucide="' + name + '"' + (extraClass ? ' class="' + extraClass + '"' : '') + '></i>';
+        // El nombre del icono puede venir de datos guardados (categorías): solo se aceptan caracteres de clave
+        const seguro = String(name || 'circle').replace(/[^\w-]/g, '');
+        return '<i data-lucide="' + seguro + '"' + (extraClass ? ' class="' + QStore.escapeHtml(extraClass) + '"' : '') + '></i>';
     }
 
     /* Pide a Unsplash solo el ancho que se va a mostrar (las demás URLs no se tocan) */

@@ -1,0 +1,12 @@
+# Q-RICO · Cabeceras de seguridad HTTP para hosts estáticos (formato _headers)
+# X-Frame-Options en SAMEORIGIN permite que la landing muestre el menú y el panel en iframes
+# y evita que otro sitio los incruste (clickjacking).
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+/manifest.json
+  Content-Type: application/manifest+json

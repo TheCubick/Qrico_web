@@ -3,9 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q-RICO | Menú digital y punto de venta para restaurantes</title>
-    <meta name="description" content="Q-RICO moderniza tu restaurante: menú digital por QR, monitor de cocina, punto de venta y reportes en una sola plataforma, sin comisiones.">
+    <title>Q-RICO | Menú digital QR y punto de venta para restaurantes en Tuxtla Gutiérrez, Chiapas</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Q-RICO es el SaaS de menús digitales QR, monitor de cocina (KDS), punto de venta y reportes para restaurantes en Tuxtla Gutiérrez, Chiapas. Plan único de $499.00 MXN al mes, sin comisiones.">
+    <meta name="keywords" content="Q-RICO, Q-RICO Tuxtla, menú digital QR, menú QR restaurantes Chiapas, punto de venta restaurante, KDS cocina, software para restaurantes Tuxtla Gutiérrez, SaaS restaurantes México">
+    <meta name="author" content="Pablo Ángel Ramírez García, José María Orantes Palacios, Jocelin Magdalena Aguilar Rueda">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://qrico-web.onrender.com/">
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Q-RICO">
+    <meta property="og:locale" content="es_MX">
+    <meta property="og:url" content="https://qrico-web.onrender.com/">
+    <meta property="og:title" content="Q-RICO | Menú digital QR y gestión para restaurantes">
+    <meta property="og:description" content="Menú QR, monitor de cocina, punto de venta y reportes en tiempo real. Hecho en Tuxtla Gutiérrez, Chiapas. $499.00 MXN al mes, sin comisiones.">
+    <meta property="og:image" content="https://qrico-web.onrender.com/menu-web/assets/images/logo/LogoHD.jpg">
+    <meta property="og:image:alt" content="Logotipo de Q-RICO">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Q-RICO | Menú digital QR y gestión para restaurantes">
+    <meta name="twitter:description" content="Menú QR, KDS, punto de venta y reportes en tiempo real para restaurantes en Chiapas. $499.00 MXN al mes.">
+    <meta name="twitter:image" content="https://qrico-web.onrender.com/menu-web/assets/images/logo/LogoHD.jpg">
+
+    <!-- Seguridad -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#D1312B">
     <link rel="icon" type="image/png" href="menu-web/assets/images/logo/logomin.png">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+    <!-- Datos estructurados Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": "https://qrico-web.onrender.com/#organizacion",
+                "name": "Q-RICO",
+                "url": "https://qrico-web.onrender.com/",
+                "logo": "https://qrico-web.onrender.com/menu-web/assets/images/logo/LogoHD.jpg",
+                "email": "hola@qrico.mx",
+                "founder": [
+                    { "@type": "Person", "name": "Pablo Ángel Ramírez García" },
+                    { "@type": "Person", "name": "José María Orantes Palacios" },
+                    { "@type": "Person", "name": "Jocelin Magdalena Aguilar Rueda" }
+                ],
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Tuxtla Gutiérrez",
+                    "addressRegion": "Chiapas",
+                    "addressCountry": "MX"
+                },
+                "areaServed": { "@type": "State", "name": "Chiapas" }
+            },
+            {
+                "@type": "SoftwareApplication",
+                "name": "Q-RICO",
+                "url": "https://qrico-web.onrender.com/",
+                "applicationCategory": "BusinessApplication",
+                "applicationSubCategory": "Software para restaurantes",
+                "operatingSystem": "Web",
+                "inLanguage": "es-MX",
+                "description": "Menú digital QR, monitor de cocina (KDS), punto de venta, mesas y reportes para restaurantes, sincronizados en tiempo real.",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "499.00",
+                    "priceCurrency": "MXN",
+                    "priceSpecification": {
+                        "@type": "UnitPriceSpecification",
+                        "price": "499.00",
+                        "priceCurrency": "MXN",
+                        "unitText": "MES"
+                    }
+                },
+                "publisher": { "@id": "https://qrico-web.onrender.com/#organizacion" }
+            }
+        ]
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,15 +107,19 @@
 
             <nav class="nav__enlaces" id="nav-enlaces" aria-label="Navegación principal">
                 <a href="#producto">Producto</a>
-                <a href="#como-funciona">Cómo funciona</a>
+                <a href="#demo">Demo en vivo</a>
                 <a href="#precios">Precios</a>
                 <a href="#contacto">Contacto</a>
+                <a class="q-btn q-btn--dark nav__movil-sesion" href="panel-administrativo/index.html">Probar panel demo</a>
                 <a class="q-btn q-btn--outline nav__movil-sesion" href="panel-administrativo/index.html">Iniciar sesión</a>
             </nav>
 
             <div class="nav__acciones">
                 <a class="q-btn q-btn--outline nav__sesion" href="panel-administrativo/index.html">
                     <i data-lucide="log-in"></i>Iniciar sesión
+                </a>
+                <a class="q-btn q-btn--dark nav__sesion" href="panel-administrativo/index.html">
+                    <i data-lucide="layout-dashboard"></i>Probar panel demo
                 </a>
                 <button class="nav__burger" id="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-enlaces">
                     <i data-lucide="menu"></i>
@@ -47,7 +133,7 @@
         <section class="hero" id="inicio">
             <div class="contenedor hero__grid">
                 <div class="hero__texto">
-                    <p class="etiqueta">Software para restaurantes en México</p>
+                    <p class="etiqueta">Software para restaurantes en Chiapas</p>
                     <h1 class="hero__titulo">Tu restaurante, del papel a la nube <em>en una tarde.</em></h1>
                     <p class="hero__bajada">
                         Menú digital por QR, monitor de cocina, punto de venta y reportes en una sola plataforma.
@@ -59,6 +145,9 @@
                         </a>
                         <a class="q-btn q-btn--outline btn-grande" href="menu-web/index.html?mesa=1">
                             <i data-lucide="qr-code"></i>Ver menú demo
+                        </a>
+                        <a class="q-btn q-btn--dark btn-grande" href="panel-administrativo/index.html">
+                            <i data-lucide="layout-dashboard"></i>Probar panel demo
                         </a>
                     </div>
                     <ul class="hero__garantias">
@@ -177,6 +266,98 @@
             </div>
         </section>
 
+        <!-- ===================== Demo interactiva en vivo =====================
+             Dos iframes del mismo origen comparten localStorage y BroadcastChannel:
+             un pedido enviado desde el teléfono aparece al instante en el panel. -->
+        <section class="seccion demo" id="demo" aria-labelledby="demo-titulo">
+            <div class="contenedor">
+                <header class="seccion__cabeza seccion__cabeza--claro">
+                    <p class="etiqueta">Demo interactiva</p>
+                    <h2 id="demo-titulo">Explora el ecosistema en vivo</h2>
+                    <p>Agrega un platillo en el teléfono y envía el pedido: aparece en el monitor de cocina al instante, sin recargar y sin cambiar de pestaña.</p>
+                </header>
+
+                <!-- En móvil se elige qué lado ver; en escritorio ambos se muestran lado a lado -->
+                <div class="demo__selector" role="tablist" aria-label="Elegir vista">
+                    <button type="button" role="tab" class="is-active" aria-selected="true" data-pane="comensal" aria-controls="demo-comensal">
+                        <i data-lucide="smartphone"></i>Vista comensal QR
+                    </button>
+                    <button type="button" role="tab" aria-selected="false" data-pane="panel" aria-controls="demo-panel">
+                        <i data-lucide="monitor"></i>Vista restaurante
+                    </button>
+                </div>
+
+                <div class="demo__grid">
+                    <div class="demo__pane demo__pane--comensal is-active" id="demo-comensal" role="tabpanel">
+                        <p class="demo__rotulo"><i data-lucide="smartphone"></i>Comensal · Mesa 1</p>
+                        <div class="demo-telefono">
+                            <div class="demo-escala" data-base-ancho="390" data-base-alto="780">
+                                <iframe title="Menú digital del comensal en la mesa 1" data-src="menu-web/pages/menu.html?mesa=1" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <a class="demo__abrir" href="menu-web/index.html?mesa=1">Abrir el menú completo<i data-lucide="arrow-up-right"></i></a>
+                    </div>
+
+                    <div class="demo__pane demo__pane--panel" id="demo-panel" role="tabpanel">
+                        <div class="demo__vistas" role="tablist" aria-label="Vista del panel del restaurante">
+                            <button type="button" role="tab" class="is-active" aria-selected="true" data-vista="kds"><i data-lucide="chef-hat"></i>Cocina · KDS</button>
+                            <button type="button" role="tab" aria-selected="false" data-vista="pos"><i data-lucide="calculator"></i>Punto de venta</button>
+                            <button type="button" role="tab" aria-selected="false" data-vista="mesas"><i data-lucide="layout-grid"></i>Mesas</button>
+                        </div>
+                        <div class="demo-navegador">
+                            <div class="demo-navegador__barra" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                                <em>qrico-web.onrender.com/panel-administrativo</em>
+                            </div>
+                            <div class="demo-escala" data-base-ancho="1280" data-base-alto="800">
+                                <iframe title="Panel administrativo del restaurante" data-src="panel-administrativo/pages/admin.html#kds" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="demo__pie">
+                            <span><i data-lucide="info"></i>Sesión de demostración como Gerente.</span>
+                            <button type="button" class="demo__reiniciar" id="demo-reiniciar"><i data-lucide="rotate-ccw"></i>Restaurar datos de demostración</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acceso rápido por rol -->
+                <div class="roles">
+                    <h3 class="roles__titulo">Acceso rápido por rol <span>(1 clic)</span></h3>
+                    <p class="roles__bajada">Entra directo al panel con el perfil que quieras evaluar. El PIN se muestra por si prefieres teclearlo.</p>
+                    <div class="roles__grid">
+                        <a class="rol-card" href="panel-administrativo/index.html" data-rol="gerente">
+                            <span class="rol-card__icono"><i data-lucide="crown"></i></span>
+                            <strong>Gerente</strong>
+                            <span class="rol-card__pin q-mono">1234</span>
+                            <small>Acceso total: dashboard, POS, KDS, mesas, menú, personal, reportes y configuración.</small>
+                            <span class="rol-card__cta">Entrar como Gerente<i data-lucide="arrow-right"></i></span>
+                        </a>
+                        <a class="rol-card" href="panel-administrativo/index.html" data-rol="cajero">
+                            <span class="rol-card__icono"><i data-lucide="calculator"></i></span>
+                            <strong>Cajero</strong>
+                            <span class="rol-card__pin q-mono">2222</span>
+                            <small>Dashboard, punto de venta, mesas y reportes.</small>
+                            <span class="rol-card__cta">Entrar como Cajero<i data-lucide="arrow-right"></i></span>
+                        </a>
+                        <a class="rol-card" href="panel-administrativo/index.html" data-rol="cocina">
+                            <span class="rol-card__icono"><i data-lucide="chef-hat"></i></span>
+                            <strong>Cocina</strong>
+                            <span class="rol-card__pin q-mono">3333</span>
+                            <small>Monitor KDS en tiempo real y disponibilidad de platillos.</small>
+                            <span class="rol-card__cta">Entrar como Cocina<i data-lucide="arrow-right"></i></span>
+                        </a>
+                        <a class="rol-card" href="panel-administrativo/index.html" data-rol="mesero">
+                            <span class="rol-card__icono"><i data-lucide="hand-platter"></i></span>
+                            <strong>Mesero</strong>
+                            <span class="rol-card__pin q-mono">4444</span>
+                            <small>Mapa de mesas, punto de venta y monitor KDS.</small>
+                            <span class="rol-card__cta">Entrar como Mesero<i data-lucide="arrow-right"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ===================== Cómo funciona ===================== -->
         <section class="seccion seccion--crema" id="como-funciona" aria-labelledby="pasos-titulo">
             <div class="contenedor">
@@ -275,8 +456,8 @@
             <div class="pie__col">
                 <h3>Contacto</h3>
                 <a href="mailto:hola@qrico.mx"><i data-lucide="mail"></i>hola@qrico.mx</a>
-                <a href="tel:+524421234567"><i data-lucide="phone"></i>442 123 4567</a>
-                <span><i data-lucide="map-pin"></i>Querétaro, México</span>
+                <a href="tel:+529611234567"><i data-lucide="phone"></i>961 123 4567</a>
+                <span><i data-lucide="map-pin"></i>Tuxtla Gutiérrez, Chiapas</span>
             </div>
         </div>
         <div class="contenedor pie__legal">
@@ -286,6 +467,7 @@
     </footer>
 
     <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+    <script src="shared/js/store.js"></script>
     <script src="assets/scripts/landing.js"></script>
 </body>
 </html>

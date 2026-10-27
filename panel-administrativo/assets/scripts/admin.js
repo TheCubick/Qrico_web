@@ -17,6 +17,8 @@
 
     const SESSION_KEY = 'qrico_sesion';
     const SOUND_KEY = 'qrico_sonido';
+    const PIN_INTENTOS_KEY = 'qrico_pin_intentos';
+    const PIN_BLOQUEO_KEY = 'qrico_pin_bloqueo';
     const DAY = 86400000;
 
     const COLORES = { coral: '#D1312B', mostaza: '#D1A059', carbon: '#1E1B18', piedra: '#6E655F', salvia: '#2E7D32', borde: '#DFD3BC', crema: '#EDE2CE' };
@@ -86,18 +88,32 @@
         }
     }
 
-    function sonidoActivo() { return localStorage.getItem(SOUND_KEY) !== '0'; }
+    function sonidoActivo() {
+        try { return localStorage.getItem(SOUND_KEY) !== '0'; } catch (e) { return true; }
+    }
 
     /* ---------------- Sesión ---------------- */
+    // La sesión se valida en cada lectura: si alguien la altera desde la consola con tipos o roles
+    // inválidos, se descarta y el panel regresa al acceso por PIN.
     function sesion() {
-        try { return JSON.parse(sessionStorage.getItem(SESSION_KEY)); } catch (e) { return null; }
+        try {
+            const se = JSON.parse(sessionStorage.getItem(SESSION_KEY));
+            if (!se || typeof se !== 'object' || typeof se.id !== 'string' || typeof se.nombre !== 'string') return null;
+            if (!QStore.ROLES[se.rol]) return null;
+            return se;
+        } catch (e) {
+            return null;
+        }
+    }
+    function guardarSesion(se) {
+        try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(se)); } catch (e) { /* almacenamiento bloqueado */ }
     }
     function puede(vista) {
         const se = sesion();
         return !!(se && QStore.ROLES[se.rol] && QStore.ROLES[se.rol].vistas.includes(vista));
     }
     function cerrarSesion() {
-        sessionStorage.removeItem(SESSION_KEY);
+        try { sessionStorage.removeItem(SESSION_KEY); } catch (e) { /* almacenamiento bloqueado */ }
         location.href = '../index.html';
     }
 
@@ -120,8 +136,50 @@
         const dots = $$('#pin-dots span');
         const pintar = () => dots.forEach((d, i) => d.classList.toggle('is-filled', i < pin.length));
 
+        /* Protección contra fuerza bruta: tras 5 PIN incorrectos seguidos el teclado se bloquea 30 s.
+           El conteo y el bloqueo se guardan en localStorage para que recargar la página no los reinicie. */
+        const MAX_INTENTOS = 5;
+        const BLOQUEO_MS = 30000;
+        const leerNumero = key => {
+            try { const n = Number(localStorage.getItem(key)); return Number.isFinite(n) && n > 0 ? n : 0; } catch (e) { return 0; }
+        };
+        const escribir = (key, v) => {
+            try { if (v) localStorage.setItem(key, String(v)); else localStorage.removeItem(key); } catch (e) { /* sin almacenamiento */ }
+        };
+        let intentos = leerNumero(PIN_INTENTOS_KEY);
+        let bloqueoHasta = leerNumero(PIN_BLOQUEO_KEY);
+        let relojBloqueo = null;
+
+        function enBloqueo() { return bloqueoHasta > Date.now(); }
+
+        function mostrarBloqueo() {
+            const card = $('#pin-card');
+            card.classList.add('is-locked');
+            $$('#pin-pad button, #pin-demo button').forEach(b => { b.disabled = true; });
+            const pintarReloj = () => {
+                const resta = Math.ceil((bloqueoHasta - Date.now()) / 1000);
+                if (resta <= 0) {
+                    clearInterval(relojBloqueo);
+                    relojBloqueo = null;
+                    bloqueoHasta = 0;
+                    intentos = 0;
+                    escribir(PIN_BLOQUEO_KEY, 0);
+                    escribir(PIN_INTENTOS_KEY, 0);
+                    card.classList.remove('is-locked');
+                    $$('#pin-pad button, #pin-demo button').forEach(b => { b.disabled = false; });
+                    $('#pin-mensaje').textContent = 'Teclado desbloqueado. Ingresa tu PIN.';
+                    return;
+                }
+                $('#pin-mensaje').innerHTML = '<span class="pin-alerta">' + I('shield-alert') +
+                    '<span>Demasiados intentos fallidos. Por seguridad, espera <b class="q-mono">' + resta + ' s</b>.</span></span>';
+                QUI.icons($('#pin-mensaje'));
+            };
+            pintarReloj();
+            if (!relojBloqueo) relojBloqueo = setInterval(pintarReloj, 1000);
+        }
+
         function tecla(k) {
-            if (bloqueado) return;
+            if (bloqueado || enBloqueo()) return;
             if (k === 'back') pin = pin.slice(0, -1);
             else if (k === 'clear') pin = '';
             else if (/^\d$/.test(k) && pin.length < 4) pin += k;
@@ -135,15 +193,30 @@
             bloqueado = true;
             const u = S().personal.find(p => p.activo && p.pin === pin);
             if (!u) {
+                intentos += 1;
+                escribir(PIN_INTENTOS_KEY, intentos);
                 $('#pin-dots').classList.add('is-error');
-                $('#pin-mensaje').textContent = 'PIN incorrecto. Intenta de nuevo.';
+                const restantes = MAX_INTENTOS - intentos;
+                $('#pin-mensaje').textContent = restantes > 0
+                    ? 'PIN incorrecto. Te quedan ' + restantes + (restantes === 1 ? ' intento.' : ' intentos.')
+                    : 'PIN incorrecto.';
                 QUI.shake($('#pin-card'));
-                setTimeout(() => { pin = ''; pintar(); $('#pin-dots').classList.remove('is-error'); bloqueado = false; }, 700);
+                setTimeout(() => {
+                    pin = ''; pintar(); $('#pin-dots').classList.remove('is-error'); bloqueado = false;
+                    if (intentos >= MAX_INTENTOS) {
+                        bloqueoHasta = Date.now() + BLOQUEO_MS;
+                        escribir(PIN_BLOQUEO_KEY, bloqueoHasta);
+                        QUI.toast('El acceso se bloqueó 30 segundos por seguridad.', 'error', { title: 'Alerta de seguridad', icon: 'shield-alert' });
+                        mostrarBloqueo();
+                    }
+                }, 700);
                 return;
             }
+            intentos = 0;
+            escribir(PIN_INTENTOS_KEY, 0);
             $('#pin-dots').classList.add('is-success');
             $('#pin-mensaje').textContent = 'Hola, ' + u.nombre.split(' ')[0] + '. Entrando como ' + QStore.ROLES[u.rol].label + '…';
-            sessionStorage.setItem(SESSION_KEY, JSON.stringify({ id: u.id, nombre: u.nombre, rol: u.rol, desde: Date.now() }));
+            guardarSesion({ id: u.id, nombre: u.nombre, rol: u.rol, desde: Date.now() });
             const destino = 'pages/admin.html#' + QStore.ROLES[u.rol].inicio;
             if (QUI.hasGsap()) gsap.to('.login', { opacity: 0, y: -12, duration: 0.45, delay: 0.35, ease: 'power2.in', onComplete: () => { location.href = destino; } });
             else location.href = destino;
@@ -162,7 +235,7 @@
         });
         $('#pin-demo').addEventListener('click', e => {
             const b = e.target.closest('[data-pin]');
-            if (!b || bloqueado) return;
+            if (!b || bloqueado || enBloqueo()) return;
             pin = '';
             pintar();
             b.dataset.pin.split('').forEach((d, i) => setTimeout(() => tecla(d), 110 * (i + 1)));
@@ -173,6 +246,9 @@
             gsap.from('.pin-card', { y: 30, opacity: 0, duration: 0.8, ease: 'expo.out', delay: 0.1 });
             gsap.from('.pin-pad button', { scale: 0.7, opacity: 0, duration: 0.5, stagger: 0.03, ease: 'back.out(2)', delay: 0.25 });
         }
+
+        // Si la página se recargó durante un bloqueo, este continúa donde se quedó
+        if (enBloqueo()) mostrarBloqueo();
     }
 
     /* =================================================================
@@ -454,7 +530,7 @@
         const u = se && state.personal.find(p => p.id === se.id && p.activo);
         if (!u) { QUI.toast('Tu acceso fue modificado. Ingresa de nuevo.', 'warning'); setTimeout(cerrarSesion, 1200); return; }
         if (u.rol !== se.rol || u.nombre !== se.nombre) {
-            sessionStorage.setItem(SESSION_KEY, JSON.stringify(Object.assign(se, { rol: u.rol, nombre: u.nombre })));
+            guardarSesion(Object.assign(se, { rol: u.rol, nombre: u.nombre }));
             if (!puede(vistaActual)) { cargarVista(QStore.ROLES[u.rol].inicio); }
         }
         renderShell();
@@ -860,7 +936,7 @@
                         <div class="stack-actions">
                             <button class="q-btn q-btn--primary" id="qr-pdf">${I('printer')} Imprimir / PDF</button>
                             <button class="q-btn q-btn--outline" id="qr-png">${I('image-down')} Descargar PNG</button>
-                            <a class="q-btn q-btn--ghost" href="${esc(url)}" target="_blank" rel="noopener">${I('external-link')} Probar menú de la mesa</a>
+                            <a class="q-btn q-btn--ghost" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${I('external-link')} Probar menú de la mesa</a>
                         </div>
                     </div>
                 </div>`
