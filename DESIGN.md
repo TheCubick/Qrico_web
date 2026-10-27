@@ -242,14 +242,15 @@ Los respaldos importados desde **Configuración** pasan por la misma función, a
 
 ```
  menu-web/ (comensal)                         panel-administrativo/ (restaurante)
- ────────────────────                         ───────────────────────────────────
+ --------------------                         -----------------------------------
  QStore.update(mutador, evento)
    1. lee lo más reciente de localStorage
    2. aplica el mutador
    3. rev++ y ultimoEvento = evento
-   4. escribe localStorage ─────────────────► evento "storage"      ┐
-   5. BroadcastChannel.postMessage({rev}) ──► canal qrico_saas_channel ┘→ syncFromStorage()
-   6. notifica a sus suscriptores                                      si rev cambió → render + aviso
+   4. escribe localStorage --------------->  evento "storage"
+   5. BroadcastChannel.postMessage({rev}) ->  canal qrico_saas_channel
+                                              ambos llaman a syncFromStorage()
+   6. notifica a sus suscriptores              si rev cambió: render + aviso
 ```
 
 - `QStore.subscribe(fn)` recibe `(estado, evento, remoto)`. `remoto = true` cuando el cambio vino de otra pestaña. Con eso se deciden sonidos y toasts sin duplicarlos.

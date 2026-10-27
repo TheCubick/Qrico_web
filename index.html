@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-RICO | Menú digital y punto de venta para restaurantes</title>
+    <meta name="description" content="Q-RICO moderniza tu restaurante: menú digital por QR, monitor de cocina, punto de venta y reportes en una sola plataforma, sin comisiones.">
+    <link rel="icon" type="image/png" href="menu-web/assets/images/logo/logomin.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared/css/tokens.css">
+    <link rel="stylesheet" href="assets/styles/landing.css">
+</head>
+<body>
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+    <!-- ===================== Barra de navegación ===================== -->
+    <header class="nav" id="nav">
+        <div class="contenedor nav__inner">
+            <a class="nav__marca" href="#inicio" aria-label="Q-RICO, ir al inicio">
+                <img src="menu-web/assets/images/logo/vectorizar_logo.svg" alt="" width="40" height="40">
+                <span>Q-RICO</span>
+            </a>
+
+            <nav class="nav__enlaces" id="nav-enlaces" aria-label="Navegación principal">
+                <a href="#producto">Producto</a>
+                <a href="#como-funciona">Cómo funciona</a>
+                <a href="#precios">Precios</a>
+                <a href="#contacto">Contacto</a>
+                <a class="q-btn q-btn--outline nav__movil-sesion" href="panel-administrativo/index.html">Iniciar sesión</a>
+            </nav>
+
+            <div class="nav__acciones">
+                <a class="q-btn q-btn--outline nav__sesion" href="panel-administrativo/index.html">
+                    <i data-lucide="log-in"></i>Iniciar sesión
+                </a>
+                <button class="nav__burger" id="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-enlaces">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="contenido">
+        <!-- ===================== Hero ===================== -->
+        <section class="hero" id="inicio">
+            <div class="contenedor hero__grid">
+                <div class="hero__texto">
+                    <p class="etiqueta">Software para restaurantes en México</p>
+                    <h1 class="hero__titulo">Tu restaurante, del papel a la nube <em>en una tarde.</em></h1>
+                    <p class="hero__bajada">
+                        Menú digital por QR, monitor de cocina, punto de venta y reportes en una sola plataforma.
+                        Tus comensales piden desde su teléfono sin descargar nada, y cada pedido llega a cocina al instante.
+                    </p>
+                    <div class="hero__ctas">
+                        <a class="q-btn q-btn--primary btn-grande" href="#precios">
+                            Prueba gratuita de 15 días<i data-lucide="arrow-right"></i>
+                        </a>
+                        <a class="q-btn q-btn--outline btn-grande" href="menu-web/index.html?mesa=1">
+                            <i data-lucide="qr-code"></i>Ver menú demo
+                        </a>
+                    </div>
+                    <ul class="hero__garantias">
+                        <li><i data-lucide="check"></i>Sin tarjeta de crédito</li>
+                        <li><i data-lucide="check"></i>Sin comisiones por venta</li>
+                        <li><i data-lucide="check"></i>Cancela cuando quieras</li>
+                    </ul>
+                </div>
+
+                <!-- Maqueta del producto: teléfono del comensal y comanda en cocina -->
+                <div class="hero__visual" aria-hidden="true">
+                    <div class="telefono">
+                        <div class="telefono__pantalla">
+                            <div class="tel-barra">
+                                <span class="tel-marca">Q-RICO</span>
+                                <span class="tel-mesa">Mesa 1</span>
+                            </div>
+                            <div class="tel-chips">
+                                <span class="activo">Casera</span><span>Entradas</span><span>Café</span>
+                            </div>
+                            <div class="tel-plato">
+                                <img class="tel-plato__foto" src="https://images.unsplash.com/photo-1633372363856-f2fe2669a26e?w=160&q=70&fit=crop&auto=format" alt="">
+                                <div><strong>Chilaquiles divorciados</strong><small>Con arrachera y Cotija</small><b class="q-mono">$189</b></div>
+                                <span class="tel-plato__mas tel-plato__mas--activo q-mono">1</span>
+                            </div>
+                            <div class="tel-plato">
+                                <img class="tel-plato__foto" src="https://images.unsplash.com/photo-1594978583693-8dfdfc93f052?w=160&q=70&fit=crop&auto=format" alt="">
+                                <div><strong>Molletes de la casa</strong><small>Bolillo artesanal</small><b class="q-mono">$89</b></div>
+                                <span class="tel-plato__mas tel-plato__mas--activo q-mono">1</span>
+                            </div>
+                            <div class="tel-plato">
+                                <img class="tel-plato__foto" src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=160&q=70&fit=crop&auto=format" alt="">
+                                <div><strong>Capuchino artesanal</strong><small>Doble shot de espresso</small><b class="q-mono">$65</b></div>
+                                <span class="tel-plato__mas">+</span>
+                            </div>
+                            <div class="tel-dock">Ver mi pedido (2) <span class="q-mono">$278</span></div>
+                        </div>
+                    </div>
+
+                    <div class="comanda">
+                        <div class="comanda__cabeza">
+                            <span class="comanda__estado">En preparación</span>
+                            <span class="q-mono">04:12</span>
+                        </div>
+                        <strong>Mesa 1 · Pedido #128</strong>
+                        <ul>
+                            <li><span class="q-mono">1×</span> Chilaquiles divorciados</li>
+                            <li><span class="q-mono">1×</span> Molletes de la casa</li>
+                        </ul>
+                    </div>
+
+                    <div class="aviso-flotante">
+                        <i data-lucide="hand-platter"></i>
+                        <div><strong>Mesa 4 llama al mesero</strong><small>Hace 10 segundos</small></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== Prueba social ===================== -->
+        <section class="aliados" aria-labelledby="aliados-titulo">
+            <div class="contenedor">
+                <p class="aliados__titulo" id="aliados-titulo">Restaurantes que ya operan con Q-RICO</p>
+                <ul class="aliados__logos">
+                    <li class="logo-aliado logo-aliado--serif">La Cazuela</li>
+                    <li class="logo-aliado logo-aliado--mono"><i data-lucide="flame"></i>BRASA 42</li>
+                    <li class="logo-aliado logo-aliado--script">Doña Chela</li>
+                    <li class="logo-aliado logo-aliado--sans"><i data-lucide="coffee"></i>Café Tierra</li>
+                    <li class="logo-aliado logo-aliado--serif">El Molcajete</li>
+                    <li class="logo-aliado logo-aliado--sans"><i data-lucide="fish"></i>MAREA</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===================== Producto ===================== -->
+        <section class="seccion" id="producto" aria-labelledby="producto-titulo">
+            <div class="contenedor">
+                <header class="seccion__cabeza">
+                    <p class="etiqueta">Producto</p>
+                    <h2 id="producto-titulo">Todo lo que tu operación necesita, conectado</h2>
+                    <p>El menú del comensal y el panel del restaurante comparten la misma información en tiempo real.</p>
+                </header>
+
+                <div class="funciones">
+                    <article class="funcion">
+                        <span class="funcion__icono"><i data-lucide="qr-code"></i></span>
+                        <h3>Menú digital por QR</h3>
+                        <p>Cada mesa tiene su código. El comensal ve fotos, precios y disponibilidad, y ordena sin esperar al mesero.</p>
+                    </article>
+                    <article class="funcion">
+                        <span class="funcion__icono"><i data-lucide="chef-hat"></i></span>
+                        <h3>Monitor de cocina</h3>
+                        <p>Los pedidos aparecen en cocina al momento y avanzan de pendiente a listo. Se acabaron las comandas perdidas.</p>
+                    </article>
+                    <article class="funcion">
+                        <span class="funcion__icono"><i data-lucide="calculator"></i></span>
+                        <h3>Punto de venta</h3>
+                        <p>Cobra en efectivo o tarjeta, divide cuentas por persona o por platillo y descarga el ticket en PDF.</p>
+                    </article>
+                    <article class="funcion">
+                        <span class="funcion__icono"><i data-lucide="bell-ring"></i></span>
+                        <h3>Alertas de mesero</h3>
+                        <p>Con un toque la mesa pide atención o la cuenta, y tu equipo recibe el aviso con el número de mesa.</p>
+                    </article>
+                    <article class="funcion">
+                        <span class="funcion__icono"><i data-lucide="layout-grid"></i></span>
+                        <h3>Mesas y pedidos para llevar</h3>
+                        <p>Visualiza la ocupación del salón y atiende pedidos de mostrador o para llevar desde la misma pantalla.</p>
+                    </article>
+                    <article class="funcion">
+                        <span class="funcion__icono"><i data-lucide="chart-column"></i></span>
+                        <h3>Reportes de ventas</h3>
+                        <p>Conoce tus platillos más vendidos, tus horas pico y el ticket promedio para decidir con datos.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== Cómo funciona ===================== -->
+        <section class="seccion seccion--crema" id="como-funciona" aria-labelledby="pasos-titulo">
+            <div class="contenedor">
+                <header class="seccion__cabeza">
+                    <p class="etiqueta">Cómo funciona</p>
+                    <h2 id="pasos-titulo">Listo para tu próximo servicio</h2>
+                </header>
+                <ol class="pasos">
+                    <li class="paso">
+                        <span class="paso__num q-mono">01</span>
+                        <h3>Carga tu menú</h3>
+                        <p>Agrega categorías, platillos, fotos y precios desde el panel. Puedes cambiarlos cuando quieras.</p>
+                    </li>
+                    <li class="paso">
+                        <span class="paso__num q-mono">02</span>
+                        <h3>Imprime tus QR</h3>
+                        <p>Q-RICO genera un código por mesa. Colócalos en el salón y tus comensales ya pueden ordenar.</p>
+                    </li>
+                    <li class="paso">
+                        <span class="paso__num q-mono">03</span>
+                        <h3>Opera y cobra</h3>
+                        <p>Cocina recibe los pedidos, tus meseros atienden las alertas y caja cobra con un clic.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ===================== Planes y precios ===================== -->
+        <section class="seccion" id="precios" aria-labelledby="precios-titulo">
+            <div class="contenedor">
+                <header class="seccion__cabeza">
+                    <p class="etiqueta">Planes y precios</p>
+                    <h2 id="precios-titulo">Un solo plan. Todo incluido.</h2>
+                    <p>Sin costos ocultos y sin porcentaje sobre tus ventas: lo que vendes es tuyo.</p>
+                </header>
+
+                <article class="plan">
+                    <div class="plan__info">
+                        <span class="plan__insignia">Plan Q-RICO</span>
+                        <p class="plan__precio">
+                            <span class="plan__moneda">$</span><span class="plan__monto">499</span><span class="plan__centavos">.00</span>
+                            <span class="plan__periodo">MXN / mes</span>
+                        </p>
+                        <p class="plan__nota">Más IVA. <strong>0% de comisión</strong> por venta.</p>
+                        <a class="q-btn q-btn--primary btn-grande plan__cta" href="panel-administrativo/index.html">
+                            Comenzar prueba gratuita<i data-lucide="arrow-right"></i>
+                        </a>
+                        <p class="plan__pie">15 días gratis, sin tarjeta de crédito.</p>
+                    </div>
+                    <ul class="plan__lista">
+                        <li><i data-lucide="check"></i>Menú digital con QR ilimitados</li>
+                        <li><i data-lucide="check"></i>Monitor de cocina en tiempo real</li>
+                        <li><i data-lucide="check"></i>Punto de venta y tickets en PDF</li>
+                        <li><i data-lucide="check"></i>División de cuentas automática</li>
+                        <li><i data-lucide="check"></i>Alertas de mesero y pedidos para llevar</li>
+                        <li><i data-lucide="check"></i>Reportes de ventas</li>
+                        <li><i data-lucide="check"></i>Usuarios por rol con acceso por PIN</li>
+                        <li><i data-lucide="check"></i>Soporte por correo y WhatsApp</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===================== Llamado final ===================== -->
+        <section class="cta-final">
+            <div class="contenedor cta-final__inner">
+                <h2>Prueba Q-RICO en tu restaurante esta semana.</h2>
+                <div class="hero__ctas">
+                    <a class="q-btn q-btn--gold btn-grande" href="#precios">Prueba gratuita de 15 días</a>
+                    <a class="q-btn btn-grande cta-final__sec" href="menu-web/index.html?mesa=1">Ver menú demo</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================== Pie de página ===================== -->
+    <footer class="pie" id="contacto">
+        <div class="contenedor pie__grid">
+            <div class="pie__marca">
+                <a class="nav__marca" href="#inicio">
+                    <img src="menu-web/assets/images/logo/vectorizar_logo.svg" alt="" width="40" height="40">
+                    <span>Q-RICO</span>
+                </a>
+                <p>Menú digital y punto de venta para restaurantes que quieren crecer sin complicarse.</p>
+            </div>
+
+            <nav class="pie__col" aria-label="Enlaces rápidos">
+                <h3>Enlaces rápidos</h3>
+                <a href="#producto">Producto</a>
+                <a href="#como-funciona">Cómo funciona</a>
+                <a href="#precios">Precios</a>
+                <a href="menu-web/index.html?mesa=1">Menú demo</a>
+                <a href="panel-administrativo/index.html">Iniciar sesión</a>
+            </nav>
+
+            <div class="pie__col">
+                <h3>Contacto</h3>
+                <a href="mailto:hola@qrico.mx"><i data-lucide="mail"></i>hola@qrico.mx</a>
+                <a href="tel:+524421234567"><i data-lucide="phone"></i>442 123 4567</a>
+                <span><i data-lucide="map-pin"></i>Querétaro, México</span>
+            </div>
+        </div>
+        <div class="contenedor pie__legal">
+            <span>&copy; <span id="anio">2026</span> Q-RICO. Todos los derechos reservados.</span>
+            <span>Proyecto académico</span>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+    <script src="assets/scripts/landing.js"></script>
+</body>
+</html>
